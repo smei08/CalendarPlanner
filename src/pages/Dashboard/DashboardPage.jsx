@@ -13,3 +13,13 @@
 // LabelCard
 // mini calendar
 // event card view
+
+import CalendarGrid from "../../components/calendar/CalendarGrid";
+
+export default function DashboardPage() {
+  return (
+    <div>
+      <CalendarGrid />
+    </div>
+  );
+}
