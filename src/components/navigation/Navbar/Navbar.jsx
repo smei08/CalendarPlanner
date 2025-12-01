@@ -1,13 +1,15 @@
-import IconButton from "../ui/IconButton";
-import Button from "../ui/Button";
-import MonthSwitcher from "../navigation/MonthSwitcher";
-import Avatar from "../ui/Avatar";
+import IconButton from "../../ui/IconButton";
+import Button from "../../ui/Button";
+import MonthSwitcher from "../MonthSwitcher";
+import Avatar from "../../ui/Avatar";
+import "./navbar.css";
 
 export default function Navbar({ onToggleExpand }) {
   return (
     <div className="nav-bar">
       {/* left section: clasp and create btn */}
       <div className="nav-left">
+        <Avatar />
         <IconButton variant="clasp" onClick={onToggleExpand} />
         <IconButton variant="add" />
       </div>
@@ -23,7 +25,6 @@ export default function Navbar({ onToggleExpand }) {
       <div className="nav-right">
         <IconButton variant="calendar" />
         <IconButton variant="eventOverview" />
-        <Avatar />
       </div>
     </div>
   );

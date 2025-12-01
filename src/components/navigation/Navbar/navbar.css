@@ -1,0 +1,27 @@
+.nav-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100vw;
+  padding: 15px;
+  background-color: blueviolet;
+}
+.nav-left {
+  width: 25%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.nav-middle {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 50%;
+}
+
+.nav-right {
+  display: flex;
+  width: 25%;
+  justify-content: space-around;
+  align-items: center;
+}

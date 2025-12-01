@@ -1,4 +1,4 @@
-import Navbar from "../components/navigation/Navbar";
+import Navbar from "../components/navigation/Navbar/Navbar";
 import MiniCalenderCard from "../components/calendar/MiniCalendar";
 import LabelCard from "../components/notes/LabelCard";
 import NotesCard from "../components/notes/NotesCard";

@@ -1,7 +1,7 @@
 export default function MonthSwitcher() {
   return (
     <div>
-      {"<"} MonthSwitcher {">"}
+      {"<"} {">"} MonthSwitcher
     </div>
   );
 }
