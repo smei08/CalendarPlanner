@@ -1,3 +1,5 @@
+import "../CalendarHeader/calendarHeader.css";
+
 export default function CalendarHeader() {
   const weekdays = [
     "Sunday",
@@ -10,9 +12,11 @@ export default function CalendarHeader() {
   ];
 
   return (
-    <div>
+    <div className="weekday-header">
       {weekdays.map((weekday) => (
-        <div key={weekday}>{weekday}</div>
+        <div className="weekday" key={weekday}>
+          {weekday}
+        </div>
       ))}
     </div>
   );

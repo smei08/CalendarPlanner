@@ -1,3 +1,5 @@
+import "../DateCell/dateCell.css";
+
 export default function DateCell() {
   const days = [];
 
@@ -6,9 +8,11 @@ export default function DateCell() {
   }
 
   return (
-    <div>
+    <div className="dateCell">
       {days.map((day) => (
-        <div key={day}>{day}</div>
+        <div className="day" key={day}>
+          {day}
+        </div>
       ))}
     </div>
   );

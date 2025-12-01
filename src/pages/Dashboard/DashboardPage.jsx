@@ -14,7 +14,7 @@
 // mini calendar
 // event card view
 
-import CalendarGrid from "../../components/calendar/CalendarGrid";
+import CalendarGrid from "../../components/calendar/CalendarGrid/CalendarGrid";
 
 export default function DashboardPage() {
   return (
