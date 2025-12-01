@@ -16,6 +16,7 @@ export default function Navbar({ onToggleExpand }) {
       <div className="nav-middle">
         <Button variant="pill">Today</Button>
         <MonthSwitcher />
+        <div>December 2025</div>
       </div>
 
       {/* right section: calender icon, eventoverview btn, profile pic */}
