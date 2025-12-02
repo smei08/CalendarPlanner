@@ -1,11 +1,10 @@
-.dateCell {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  text-align: center;
-  height: 100vh;
-}
-.day {
-  border: 0.5px solid black;
-  border-radius: 5px;
-  background-color: azure;
+.date-cell {
+  border: 0.5px solid #ccc;
+  border-radius: 4px;
+  padding: 4px;
+  text-align: right;
+  font-size: 0.9rem;
+  background-color: #f9feff;
+  min-height: 0;
+  color: #000;
 }

@@ -1,7 +1,25 @@
+/* wraps the header + days grid */
 .calendar-grid-container {
+  display: flex;
+  flex-direction: column; /* header on top, days below */
+  width: 100%;
+  flex: 1 1 auto;
+  /* max-width: 1000px; */
+}
+
+/* wraps ALL 42 DateCell components */
+.day-cells-grid {
+  flex: 1 1 auto;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr); /* 7 columns */
+  text-align: center;
+  height: 100vh;
+}
+
+/* .calendar-grid-container {
   display: flex;
   justify-content: center;
   align-content: center;
   width: 100vw;
   flex-direction: column;
-}
+} */

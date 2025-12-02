@@ -1,15 +1,36 @@
+/* Whole app layout: header + optional panels + main content */
 .app-layout {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  height: 100vh; /* exactly one viewport tall */
+  width: 100%;
 }
 
+/* Navbar area */
+.top-header {
+  flex: 0 0 auto; /* height is just its content */
+}
+
+/* Row of quick panels (mini calendar, labels, notes) */
 .header-cards {
+  flex: 0 0 auto; /* only as tall as content */
   display: flex;
   justify-content: space-around;
-  width: 100%;
-  height: 200px;
   align-items: center;
+  width: 100%;
+  padding: 8px 16px; /* no fixed height */
   background-color: bisque;
+  height: 200px;
+}
+
+/* Main area where pages (Dashboard, EventOverview, etc.) render */
+.calendar-content {
+  flex: 1 1 auto; /* takes all remaining height */
+  min-height: 0; /* important for nested flex/grid layouts */
+  display: flex;
+  justify-content: center; /* center main content horizontally */
+  align-items: stretch; /* stretch it vertically */
+  padding: 16px;
+  overflow: hidden; /* avoid scrollbars from tiny overflows */
+  background-color: #e6fbff;
 }

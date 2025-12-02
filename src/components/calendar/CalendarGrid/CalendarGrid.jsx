@@ -1,16 +1,25 @@
-import CalendarHeader from "../../calendar/CalendarHeader/CalendarHeader";
+import CalendarHeader from "../CalendarHeader/CalendarHeader";
 import DateCell from "../DateCell/DateCell";
-import "../CalendarGrid/calendarGrid.css";
+import "./calendarGrid.css";
 
 export default function CalendarGrid() {
+  const days = [];
+
+  for (let i = 1; i <= 42; i++) {
+    days.push(i);
+  }
+
   return (
     <div className="calendar-grid-container">
-      {/* <div className="weekday-row"> */}
+      {/* Weekday header row */}
       <CalendarHeader />
-      {/* </div> */}
-      {/* <div className="day-cells-grid"> */}
-      <DateCell />
-      {/* </div> */}
+
+      {/* 7 x 6 grid of date cells */}
+      <div className="day-cells-grid">
+        {days.map((day) => (
+          <DateCell key={day} date={day} />
+        ))}
+      </div>
     </div>
   );
 }

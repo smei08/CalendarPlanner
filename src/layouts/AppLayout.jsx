@@ -1,9 +1,11 @@
+import { useState } from "react";
+
 import Navbar from "../components/navigation/Navbar/Navbar";
-import MiniCalenderCard from "../components/calendar/MiniCalendar";
+import MiniCalendarCard from "../components/calendar/MiniCalendar";
 import LabelCard from "../components/notes/LabelCard";
 import NotesCard from "../components/notes/NotesCard";
-import "./applayout.css";
-import { useState } from "react";
+
+import "./AppLayout.css";
 
 export default function AppLayout({ children }) {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -14,21 +16,21 @@ export default function AppLayout({ children }) {
 
   return (
     <div className="app-layout">
-      {/* top header */}
+      {/* Top navbar */}
       <header className="top-header">
         <Navbar onToggleExpand={toggleExpand} />
       </header>
 
-      {/* header cards (when unclasped) */}
+      {/* Quick panels row (shows when clasp is open) */}
       {isExpanded && (
         <div className="header-cards">
-          <MiniCalenderCard />
+          <MiniCalendarCard />
           <LabelCard />
           <NotesCard />
         </div>
       )}
 
-      {/* main calendar content (page goes here) */}
+      {/* Main page content (calendar, overview, etc.) */}
       <main className="calendar-content">{children}</main>
     </div>
   );

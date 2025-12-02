@@ -17,9 +17,5 @@
 import CalendarGrid from "../../components/calendar/CalendarGrid/CalendarGrid";
 
 export default function DashboardPage() {
-  return (
-    <div>
-      <CalendarGrid />
-    </div>
-  );
+  return <CalendarGrid />;
 }
