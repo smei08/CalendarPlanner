@@ -5,7 +5,7 @@ import MiniCalendarCard from "../components/calendar/MiniCalendar";
 import LabelCard from "../components/notes/LabelCard";
 import NotesCard from "../components/notes/NotesCard";
 
-import "./AppLayout.css";
+import "./appLayout.css";
 
 export default function AppLayout({ children }) {
   const [isExpanded, setIsExpanded] = useState(false);
