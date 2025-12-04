@@ -5,6 +5,7 @@ import Avatar from "../../ui/Avatar";
 import "./navbar.css";
 
 export default function Navbar({ onToggleExpand }) {
+  // const current = new Date();
   return (
     <div className="nav-bar">
       {/* left section: clasp and create btn */}

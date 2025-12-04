@@ -1,7 +1,10 @@
+import Button from "../ui/Button";
+
 export default function MonthSwitcher() {
   return (
     <div>
-      {"<"} {">"} MonthSwitcher
+      <Button>&lt;</Button>
+      <Button>&gt;</Button>
     </div>
   );
 }

@@ -1,25 +1,27 @@
-import "../DateCell/dateCell.css";
+import "./dateCell.css";
 
-export default function DateCell({ date }) {
-  return <div className="date-cell">{date}</div>;
+export default function DateCell({ cell }) {
+  const today = new Date();
+
+  const isToday =
+    cell.year === today.getFullYear() &&
+    cell.month === today.getMonth() &&
+    cell.day === today.getDate();
+
+  const isCurrentMonth = cell.monthType === "current";
+
+  let className = "date-cell";
+
+  if (!isCurrentMonth) {
+    className += " date-cell--faded";
+  }
+
+  if (isToday) {
+    className += " date-cell--today";
+  }
+
+  // TEMP: debug line
+  console.log("CELL", cell, "isToday?", isToday);
+
+  return <div className={className}>{cell.day}</div>;
 }
-
-// import "../DateCell/dateCell.css";
-
-// export default function DateCell() {
-//   const days = [];
-
-//   for (let i = 1; i <= 42; i++) {
-//     days.push(i);
-//   }
-
-//   return (
-//     <div className="dateCell">
-//       {days.map((day) => (
-//         <div className="day" key={day}>
-//           {day}
-//         </div>
-//       ))}
-//     </div>
-//   );
-// }

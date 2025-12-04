@@ -4,7 +4,16 @@
   padding: 4px;
   text-align: right;
   font-size: 0.9rem;
-  background-color: #f9feff;
+  /* background-color: #f9feff; */
   min-height: 0;
-  color: #ad7bff;
+  color: black;
+}
+
+.date-cell--faded {
+  color: pink;
+}
+
+.date-cell--today {
+  border: 1px solid red;
+  background-color: white;
 }
