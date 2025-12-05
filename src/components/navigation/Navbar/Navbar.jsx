@@ -4,7 +4,7 @@ import MonthSwitcher from "../MonthSwitcher";
 import Avatar from "../../ui/Avatar";
 import "./navbar.css";
 
-export default function Navbar({ onToggleExpand }) {
+export default function Navbar({ onToggleExpand, onToggleOpen }) {
   // const current = new Date();
   return (
     <div className="nav-bar">
@@ -12,7 +12,7 @@ export default function Navbar({ onToggleExpand }) {
       <div className="nav-left">
         <Avatar />
         <IconButton variant="clasp" onClick={onToggleExpand} />
-        <IconButton variant="add" />
+        <IconButton variant="add" onClick={onToggleOpen} />
       </div>
 
       {/* middle section: (today pill/butn) and (<MonthSwitcher />, <> + month/year) */}
