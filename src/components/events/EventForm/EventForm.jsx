@@ -5,7 +5,7 @@ export default function EventForm({ onClose }) {
   return (
     <div className="form-container">
       <div className="form-header">
-        <h1>Plan your day</h1>
+        <h2>Plan your day</h2>
         {/* X button */}
         <button type="button" className="form-close-button" onClick={onClose}>
           ×
