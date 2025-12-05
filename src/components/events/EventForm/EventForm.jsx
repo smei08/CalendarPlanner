@@ -8,17 +8,42 @@ export default function EventForm({ onClose }) {
   const [label, setLabel] = useState("");
   const [description, setDescription] = useState("");
 
+  const [error, setError] = useState("");
+
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    if (!title.trim() || !date) {
+      setError("Title and Date is required.");
+      return;
+    }
+
+    setError("");
+
+    const newEvent = {
+      title: title.trim(),
+      date,
+      time,
+      label: label.trim(),
+      description: description.trim(),
+    };
+
+    console.log("NEW EVENT: ", newEvent);
+    onClose();
+  }
+
   return (
     <div className="form-container">
       <div className="form-header">
         <h2>Plan your day</h2>
-
         <button type="button" className="form-close-button" onClick={onClose}>
           ×
         </button>
       </div>
 
-      <form className="form-body">
+      {error && <div className="form-error">{error}</div>}
+
+      <form className="form-body" onSubmit={handleSubmit}>
         {/* TITLE */}
         <input
           className="input title"

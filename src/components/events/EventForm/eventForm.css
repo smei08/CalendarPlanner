@@ -42,3 +42,11 @@
   gap: 8px;
   margin-top: 8px;
 }
+.form-error {
+  color: #c53030;
+  background: #ffe5e5;
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 0.85rem;
+  margin-bottom: 8px;
+}
