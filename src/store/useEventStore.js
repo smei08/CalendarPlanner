@@ -19,13 +19,13 @@ export const useEventStore = create((set, get) => ({
       time,
       label: label.trim(),
       description,
-      createdAt: newDate().toISOString(),
+      createdAt: new Date().toISOString(),
     };
 
     set((state) => {
-      const existingForDate = state.eventsByDate[dateKey] || [];
+      const existingForDate = state.eventByDate[dateKey] || [];
       return {
-        eventsByDate: {
+        eventByDate: {
           ...state.eventByDate,
           [dateKey]: [...existingForDate, newEvent],
         },

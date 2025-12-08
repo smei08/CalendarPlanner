@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./eventForm.css";
+import { useEventStore } from "../../../store/useEventStore";
 
 export default function EventForm({ onClose }) {
   const [title, setTitle] = useState("");
@@ -9,6 +10,8 @@ export default function EventForm({ onClose }) {
   const [description, setDescription] = useState("");
 
   const [error, setError] = useState("");
+
+  const createEvent = useEventStore((state) => state.createEvent);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -28,7 +31,8 @@ export default function EventForm({ onClose }) {
       description: description.trim(),
     };
 
-    console.log("NEW EVENT: ", newEvent);
+    createEvent(newEvent);
+    console.log("eventsaved");
     onClose();
   }
 
