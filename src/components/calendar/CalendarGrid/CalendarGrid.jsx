@@ -16,15 +16,15 @@ export default function CalendarGrid() {
   const firstDayIndex = new Date(currentYear, currentMonth, 1).getDay();
   const prevMonthLastDate = new Date(currentYear, currentMonth, 0).getDate();
 
-  const prevYear = currentYear - 1;
-  const prevMonth = currentMonth;
+  let prevYear = currentYear - 1;
+  let prevMonth = currentMonth;
   if (prevMonth < 0) {
     prevMonth = 11;
     prevYear -= 1;
   }
 
-  const nextYear = currentYear + 1;
-  const nextMonth = currentMonth;
+  let nextYear = currentYear + 1;
+  let nextMonth = currentMonth;
   if (nextMonth > 11) {
     prevMonth = 0;
     prevYear += 1;

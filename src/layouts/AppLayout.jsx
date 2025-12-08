@@ -30,7 +30,7 @@ export default function AppLayout({ children }) {
         <EventFormModal onClose={() => setShowEventForm(false)} />
       )}
       {/* Quick panels row (shows when clasp is open) */}
-      {isExpanded && (
+      {!isExpanded && (
         <div className="header-cards">
           <MiniCalendarCard />
           <LabelCard />
