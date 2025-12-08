@@ -15,7 +15,13 @@
 // event card view
 
 import CalendarGrid from "../../components/calendar/CalendarGrid/CalendarGrid";
+import EventListDebug from "./EventListDebug";
 
 export default function DashboardPage() {
-  return <CalendarGrid />;
+  return (
+    <>
+      <CalendarGrid />
+      <EventListDebug />
+    </>
+  );
 }
