@@ -33,4 +33,47 @@ export const useEventStore = create((set, get) => ({
     });
     return newEvent;
   },
+
+  updateEvent: (dateKey, eventId, eventUpdate) => {
+    set((state) => {
+      console.log("old: ", state.eventByDate);
+      const existingForDate = state.eventByDate[dateKey] || [];
+
+      const updatedDate = existingForDate.map((event) => {
+        return event.id === eventId ? { ...event, ...eventUpdate } : event;
+      });
+
+      console.log("new", {
+        eventByDate: {
+          ...state.eventByDate,
+          [dateKey]: updatedDate,
+        },
+      });
+      return {
+        eventByDate: {
+          ...state.eventByDate,
+          [dateKey]: updatedDate,
+        },
+      };
+    });
+  },
+
+  deleteEvent: (dateKey, eventId) => {
+    set((state) => {
+      const existingForDate = state.eventByDate[dateKey] || [];
+
+      console.log("not delete: ", state.eventByDate);
+      const updatedDate = existingForDate.filter((event) => {
+        return event.id !== eventId;
+      });
+
+      console.log("delete", updatedDate);
+      return {
+        eventByDate: {
+          ...state.eventByDate,
+          [dateKey]: updatedDate,
+        },
+      };
+    });
+  },
 }));

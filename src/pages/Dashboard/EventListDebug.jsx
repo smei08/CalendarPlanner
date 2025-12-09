@@ -2,6 +2,9 @@ import { useEventStore } from "../../store/useEventStore";
 
 export default function EventListDebug() {
   const eventByDate = useEventStore((state) => state.eventByDate);
+  const updateEvent = useEventStore((state) => state.updateEvent);
+
+  const deleteEvent = useEventStore((state) => state.deleteEvent);
 
   return (
     <div
@@ -16,7 +19,17 @@ export default function EventListDebug() {
           <ul>
             {events.map((event) => (
               <li key={event.id}>
-                {event.time || "--:--"} — {event.title}
+                {event.time} — {event.title}
+                <button
+                  onClick={() =>
+                    updateEvent(dateKey, event.id, { title: "UPDATED!" })
+                  }
+                >
+                  edit
+                </button>
+                <button onClick={() => deleteEvent(dateKey, event.id)}>
+                  delete
+                </button>
               </li>
             ))}
           </ul>
