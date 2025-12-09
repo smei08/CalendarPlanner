@@ -1,5 +1,5 @@
 // src/pages/EventOverview/EventOverviewPage.jsx
-import EventList from "../../components/events/EventList";
+import EventList from "../../components/events/EventList/EventList";
 
 export default function EventOverviewPage() {
   return (
