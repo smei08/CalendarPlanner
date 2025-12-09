@@ -19,7 +19,8 @@ export default function EventListDebug() {
           <ul>
             {events.map((event) => (
               <li key={event.id}>
-                {event.time} — {event.title}
+                {event.day} — {event.title}
+                <div>{event.description}</div>
                 <button
                   onClick={() =>
                     updateEvent(dateKey, event.id, { title: "UPDATED!" })
