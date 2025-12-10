@@ -9,6 +9,7 @@ import EventFormModal from "../components/events/EventFormModal/EventFormModal";
 import EventOverviewPage from "../pages/EventOverview/EventOverviewPage";
 
 import "./applayout.css";
+import { useCalendarStore } from "../store/useCalendarStore";
 
 export default function AppLayout({ children }) {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -16,6 +17,7 @@ export default function AppLayout({ children }) {
 
   // "calendar" | "events"
   const [activeView, setActiveView] = useState("calendar");
+  // const [today, setToday] = useState("today");
 
   const toggleExpand = () => {
     setIsExpanded((prev) => !prev);
@@ -33,6 +35,11 @@ export default function AppLayout({ children }) {
     setActiveView("events");
   };
 
+  const handleClickToday = () => {
+    setActiveView("calendar");
+    goToToday();
+  };
+
   return (
     <div className="app-layout">
       {/* Top navbar */}
@@ -42,6 +49,7 @@ export default function AppLayout({ children }) {
           onToggleExpand={toggleExpand}
           onClickCalendar={handleClickCalendar}
           onClickEvent={handleClickEvent}
+          onClickToday={handleClickToday}
         />
       </header>
 

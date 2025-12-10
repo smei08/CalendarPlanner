@@ -10,6 +10,7 @@ export default function Navbar({
   onToggleOpen,
   onClickCalendar,
   onClickEvent,
+  onClickToday,
 }) {
   return (
     <div className="nav-bar">
@@ -22,7 +23,9 @@ export default function Navbar({
 
       {/* middle section */}
       <div className="nav-middle">
-        <Button variant="pill">Today</Button>
+        <Button variant="today" onClick={onClickToday}>
+          Today
+        </Button>
         <MonthSwitcher />
         <div>December 2025</div>
       </div>

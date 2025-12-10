@@ -1,34 +1,28 @@
+// src/components/calendar/CalendarGrid/CalendarGrid.jsx
 import CalendarHeader from "../CalendarHeader/CalendarHeader";
 import DateCell from "../DateCell/DateCell";
 import "./calendarGrid.css";
 
-import { useState } from "react";
+import { useCalendarStore } from "../../../store/useCalendarStore";
 
 export default function CalendarGrid() {
+  // ✅ get currentYear + currentMonth from global store
+  const currentYear = useCalendarStore((state) => state.currentYear);
+  const currentMonth = useCalendarStore((state) => state.currentMonth);
+  // const currentDate = useCalendarStore((state) => state.currentDate); // use later if needed
+
   const days = [];
-  const today = new Date();
 
-  const [currentYear, setCurrentYear] = useState(today.getFullYear());
-  const [currentMonth, setCurrentMonth] = useState(today.getMonth());
-  const [currentDate, setCurrentDate] = useState(today.getDate());
-
+  // your existing logic, but using currentYear/currentMonth FROM STORE
   const current = new Date(currentYear, currentMonth + 1, 0);
   const firstDayIndex = new Date(currentYear, currentMonth, 1).getDay();
   const prevMonthLastDate = new Date(currentYear, currentMonth, 0).getDate();
 
-  let prevYear = currentYear - 1;
-  let prevMonth = currentMonth;
-  if (prevMonth < 0) {
-    prevMonth = 11;
-    prevYear -= 1;
-  }
+  const prevYear = currentYear - 1;
+  const prevMonth = currentMonth;
 
-  let nextYear = currentYear + 1;
-  let nextMonth = currentMonth;
-  if (nextMonth > 11) {
-    prevMonth = 0;
-    prevYear += 1;
-  }
+  const nextYear = currentYear + 1;
+  const nextMonth = currentMonth + 1;
 
   for (let i = firstDayIndex - 1; i >= 0; i--) {
     let prev = prevMonthLastDate - i;
@@ -48,6 +42,7 @@ export default function CalendarGrid() {
       month: currentMonth,
     });
   }
+
   const remainingCells = 42 - days.length;
   for (let i = 1; i <= remainingCells; i++) {
     days.push({
@@ -58,13 +53,9 @@ export default function CalendarGrid() {
     });
   }
 
-  console.log(days);
   return (
     <div className="calendar-grid-container">
-      {/* Weekday header row */}
       <CalendarHeader />
-
-      {/* 7 x 6 grid of date cells */}
       <div className="day-cells-grid">
         {days.map((cell) => (
           <DateCell
