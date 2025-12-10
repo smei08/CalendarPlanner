@@ -20,28 +20,12 @@ export default function EventList({ sortMode = "date" }) {
   }
   const entries = Object.entries(eventByDate);
 
-  const sortedByDate = entries.sort((a, b) => {
-    new Date(a.date) - new Date(b.date);
-  });
-
-  const sortedByLabel = entries.sort((a, b) => {
-    // const lableA = a.label.toUpperCase();
-    // const lableB = b.label.toUpperCase();
-
-    if (a.label < b.label) {
-      return -1;
-    }
-    if (a.label > b.label) {
-      return 1;
-    }
-    return 0;
-  });
-  console.log("sorted by label: ", sortedByLabel);
+  const sortedEntries = entries.sort((a, b) => a[0].localeCompare(b[0]));
 
   // 2. Normal case: we have events
   return (
     <div className="eventlist-container" style={{ color: "black" }}>
-      {Object.entries(eventByDate).map(([dateKey, events]) => {
+      {sortedEntries.map(([dateKey, events]) => {
         // ---- JS section: compute date labels ----
         const [y, m, day] = dateKey.split("-");
 
@@ -57,6 +41,16 @@ export default function EventList({ sortMode = "date" }) {
 
         const dayOfMonth = dateObj.getDate(); // 1–31
         const year = dateObj.getFullYear(); // 2025
+
+        let sortedEvents = [...events];
+
+        if (sortMode === "label") {
+          sortedEvents.sort((a, b) => {
+            const labelA = (a.label || "").toLowerCase();
+            const labelB = (b.label || "").toLowerCase();
+            return labelA.localeCompare(labelB);
+          });
+        }
 
         // ---- JSX section: return for this date group ----
         return (
@@ -84,7 +78,7 @@ export default function EventList({ sortMode = "date" }) {
             {/* RIGHT COLUMN: events for this day */}
             <div className="eventlist-events-column">
               <ul style={{ listStyle: "none", margin: 0, padding: 0 }}>
-                {events.map((event) => (
+                {sortedEvents.map((event) => (
                   <li
                     key={event.id}
                     className="eventlist-item"
