@@ -32,7 +32,7 @@ export default function EventForm({ onClose }) {
     };
 
     createEvent(newEvent);
-    console.log("eventsaved");
+
     onClose();
   }
 

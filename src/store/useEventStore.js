@@ -43,12 +43,6 @@ export const useEventStore = create((set, get) => ({
         return event.id === eventId ? { ...event, ...eventUpdate } : event;
       });
 
-      console.log("new", {
-        eventByDate: {
-          ...state.eventByDate,
-          [dateKey]: updatedDate,
-        },
-      });
       return {
         eventByDate: {
           ...state.eventByDate,
@@ -62,17 +56,20 @@ export const useEventStore = create((set, get) => ({
     set((state) => {
       const existingForDate = state.eventByDate[dateKey] || [];
 
-      console.log("not delete: ", state.eventByDate);
       const updatedDate = existingForDate.filter((event) => {
         return event.id !== eventId;
       });
 
-      console.log("delete", updatedDate);
+      const updatedDateCopy = { ...state.eventByDate };
+
+      if (updatedDate.length === 0) {
+        delete updatedDateCopy[dateKey];
+      } else {
+        updatedDateCopy[dateKey] = updatedDate;
+      }
+
       return {
-        eventByDate: {
-          ...state.eventByDate,
-          [dateKey]: updatedDate,
-        },
+        eventByDate: updatedDateCopy,
       };
     });
   },

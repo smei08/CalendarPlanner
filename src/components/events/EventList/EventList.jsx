@@ -1,9 +1,9 @@
 import { useEventStore } from "../../../store/useEventStore";
 
-export default function EventList() {
+export default function EventList({ sortMode = "date" }) {
   const eventByDate = useEventStore((state) => state.eventByDate);
-
-  console.log("EventList eventByDate:", eventByDate);
+  const updateEvent = useEventStore((state) => state.updateEvent);
+  const deleteEvent = useEventStore((state) => state.deleteEvent);
 
   // 1. Handle "no events" state
   if (!eventByDate || Object.keys(eventByDate).length === 0) {
@@ -18,6 +18,25 @@ export default function EventList() {
       </div>
     );
   }
+  const entries = Object.entries(eventByDate);
+
+  const sortedByDate = entries.sort((a, b) => {
+    new Date(a.date) - new Date(b.date);
+  });
+
+  const sortedByLabel = entries.sort((a, b) => {
+    // const lableA = a.label.toUpperCase();
+    // const lableB = b.label.toUpperCase();
+
+    if (a.label < b.label) {
+      return -1;
+    }
+    if (a.label > b.label) {
+      return 1;
+    }
+    return 0;
+  });
+  console.log("sorted by label: ", sortedByLabel);
 
   // 2. Normal case: we have events
   return (
@@ -110,6 +129,16 @@ export default function EventList() {
                         {event.label}
                       </div>
                     )}
+                    <button
+                      onClick={() =>
+                        updateEvent(dateKey, event.id, { title: "UPDATED!" })
+                      }
+                    >
+                      edit
+                    </button>
+                    <button onClick={() => deleteEvent(dateKey, event.id)}>
+                      delete
+                    </button>
                   </li>
                 ))}
               </ul>
