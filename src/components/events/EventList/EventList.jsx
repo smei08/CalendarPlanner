@@ -44,10 +44,18 @@ export default function EventList({ sortMode = "date", timeFilter = "all" }) {
   // Find today's date in yyyy-mm-dd format
   const today = new Date();
   const formattedDate = today.toISOString().slice(0, 10); // "2025-12-09"
+  const currentMonthNumber = formattedDate.slice(5, 7);
+  const year = formattedDate.slice(0, 4);
 
   // Filter only the entries where the dateKey matches today
   const todayFilter = sortedEntries.filter(([dateKey, events]) => {
     return dateKey === formattedDate;
+  });
+
+  const monthFilter = sortedEntries.filter(([dateKey, events]) => {
+    return (
+      dateKey.slice(5, 7) === currentMonthNumber && dateKey.slice(0, 4) === year
+    );
   });
 
   // -----------------------------------------
@@ -60,6 +68,11 @@ export default function EventList({ sortMode = "date", timeFilter = "all" }) {
   if (timeFilter === "today") {
     finalEntries = todayFilter;
   }
+  if (timeFilter === "this-month") {
+    finalEntries = monthFilter;
+    console.log("month pressed");
+  }
+
   // (Later you can add “this week”, “this month”, etc.)
 
   // -----------------------------------------
@@ -80,7 +93,7 @@ export default function EventList({ sortMode = "date", timeFilter = "all" }) {
         const weekday = dateObj.toLocaleDateString("en-US", {
           weekday: "long",
         });
-        const month = dateObj.toLocaleDateString("en-US", {
+        const monthLabel = dateObj.toLocaleDateString("en-US", {
           month: "short",
         });
         const dayOfMonth = dateObj.getDate();
@@ -118,7 +131,7 @@ export default function EventList({ sortMode = "date", timeFilter = "all" }) {
             {/* LEFT COLUMN */}
             <div className="eventlist-date-column">
               <div style={{ fontWeight: "bold" }}>
-                {month} {dayOfMonth}, {year}
+                {monthLabel} {dayOfMonth}, {year}
               </div>
               <div style={{ fontSize: "0.85rem", color: "#555" }}>
                 {weekday.toUpperCase()}
