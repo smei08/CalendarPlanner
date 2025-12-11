@@ -1,7 +1,7 @@
 // src/components/navigation/Navbar/Navbar.jsx
 import IconButton from "../../ui/IconButton";
 import Button from "../../ui/Button";
-import MonthSwitcher from "../MonthSwitcher";
+import MonthSwitcher from "../MonthSwitcher/MonthSwitcher";
 import Avatar from "../../ui/Avatar";
 import "./navbar.css";
 
@@ -27,7 +27,6 @@ export default function Navbar({
           Today
         </Button>
         <MonthSwitcher />
-        <div>December 2025</div>
       </div>
 
       {/* right section: calendar + event overview */}

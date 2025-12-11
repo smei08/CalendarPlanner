@@ -1,0 +1,10 @@
+.month-switcher {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.month-switcher-label {
+  font-size: 30px;
+  font-weight: 700;
+}

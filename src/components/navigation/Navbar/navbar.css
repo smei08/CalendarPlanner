@@ -25,3 +25,9 @@
   justify-content: space-around;
   align-items: center;
 }
+.header-date {
+  display: flex;
+  gap: 20px;
+  font-size: 30px;
+  font-weight: 800;
+}

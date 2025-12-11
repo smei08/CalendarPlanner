@@ -14,10 +14,10 @@ import { useCalendarStore } from "../store/useCalendarStore";
 export default function AppLayout({ children }) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [showEventForm, setShowEventForm] = useState(false);
-
   // "calendar" | "events"
   const [activeView, setActiveView] = useState("calendar");
-  // const [today, setToday] = useState("today");
+
+  const goToToday = useCalendarStore((state) => state.goToToday);
 
   const toggleExpand = () => {
     setIsExpanded((prev) => !prev);

@@ -1,22 +1,53 @@
-// src/store/useCalendarStore.js
 import { create } from "zustand";
 
-export const useCalendarStore = create((set) => {
+export const useCalendarStore = create((set, get) => {
   const today = new Date();
 
   return {
-    // state
     currentYear: today.getFullYear(),
-    currentMonth: today.getMonth(), // 0–11
+    currentMonth: today.getMonth(),
     currentDate: today.getDate(),
 
-    // actions
     goToToday: () => {
       const now = new Date();
       set({
         currentYear: now.getFullYear(),
         currentMonth: now.getMonth(),
         currentDate: now.getDate(),
+      });
+    },
+
+    goToNextMonth: () => {
+      const { currentMonth, currentYear } = get();
+
+      let newMonth = currentMonth + 1;
+      let newYear = currentYear;
+
+      if (newMonth > 11) {
+        newMonth = 0;
+        newYear += 1;
+      }
+
+      set({
+        currentMonth: newMonth,
+        currentYear: newYear,
+      });
+    },
+
+    goToPrevMonth: () => {
+      const { currentMonth, currentYear } = get();
+
+      let newMonth = currentMonth - 1;
+      let newYear = currentYear;
+
+      if (newMonth < 0) {
+        newMonth = 11;
+        newYear -= 1;
+      }
+
+      set({
+        currentMonth: newMonth,
+        currentYear: newYear,
       });
     },
   };
