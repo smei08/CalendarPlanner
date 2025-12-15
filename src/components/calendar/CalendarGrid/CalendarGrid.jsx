@@ -18,11 +18,11 @@ export default function CalendarGrid() {
   const firstDayIndex = new Date(currentYear, currentMonth, 1).getDay();
   const prevMonthLastDate = new Date(currentYear, currentMonth, 0).getDate();
 
-  const prevYear = currentYear - 1;
-  const prevMonth = currentMonth;
+  const prevYear = currentMonth === 0 ? currentYear - 1 : currentYear;
+  const prevMonth = currentMonth === 0 ? 11 : currentMonth - 1;
 
-  const nextYear = currentYear + 1;
-  const nextMonth = currentMonth + 1;
+  const nextYear = currentMonth === 11 ? currentYear + 1 : currentYear;
+  const nextMonth = currentMonth === 11 ? 0 : currentMonth + 1;
 
   for (let i = firstDayIndex - 1; i >= 0; i--) {
     let prev = prevMonthLastDate - i;
@@ -59,7 +59,7 @@ export default function CalendarGrid() {
       <div className="day-cells-grid">
         {days.map((cell) => (
           <DateCell
-            key={`${cell.year}-${cell.month}-${cell.day}`}
+            key={`${cell.year}-${cell.month}-${cell.day}-${cell.monthType}`}
             cell={cell}
           />
         ))}

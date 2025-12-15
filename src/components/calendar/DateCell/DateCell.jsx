@@ -3,6 +3,15 @@ import "./dateCell.css";
 export default function DateCell({ cell }) {
   const today = new Date();
 
+  const cellYear = cell.year;
+  const cellMonth = cell.month + 1;
+  const cellDate = cell.day.toString().length === 1 ? "0" + cell.day : cell.day;
+
+  const dateKey = `${cellYear}-${
+    cellMonth.toString().length === 1 ? "0" + cellMonth : cellMonth
+  }-${cellDate}`;
+  console.log("dateKey: ", dateKey);
+
   const isToday =
     cell.year === today.getFullYear() &&
     cell.month === today.getMonth() &&
