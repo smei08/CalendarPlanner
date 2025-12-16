@@ -4,6 +4,7 @@ import { persist } from "zustand/middleware";
 export const useEventStore = create(
   persist((set, get) => ({
     eventByDate: {},
+
     createEvent: (eventInput) => {
       const { title, date, time, label, description } = eventInput;
       let id;
@@ -25,7 +26,9 @@ export const useEventStore = create(
       };
 
       set((state) => {
+        console.log("before: ", state.eventByDate);
         const existingForDate = state.eventByDate[dateKey] || [];
+        console.log("after: ", state.eventByDate);
         return {
           eventByDate: {
             ...state.eventByDate,

@@ -1,3 +1,5 @@
+import { useEventStore } from "../../../store/useEventStore";
+
 import "./dateCell.css";
 
 export default function DateCell({ cell }) {
@@ -7,10 +9,13 @@ export default function DateCell({ cell }) {
   const cellMonth = cell.month + 1;
   const cellDate = cell.day.toString().length === 1 ? "0" + cell.day : cell.day;
 
-  const dateKey = `${cellYear}-${
+  const eventByDate = useEventStore((state) => state.eventByDate);
+
+  const dailyKey = `${cellYear}-${
     cellMonth.toString().length === 1 ? "0" + cellMonth : cellMonth
   }-${cellDate}`;
-  console.log("dateKey: ", dateKey);
+
+  const eventsOfTheDay = eventByDate[dailyKey] || [];
 
   const isToday =
     cell.year === today.getFullYear() &&
@@ -30,7 +35,12 @@ export default function DateCell({ cell }) {
   }
 
   // TEMP: debug line
-  console.log("CELL", cell, "isToday?", isToday);
+  // console.log("CELL", cell, "isToday?", isToday);
 
-  return <div className={className}>{cell.day}</div>;
+  return (
+    <div>
+      <div className={className}>{cell.day}</div>
+      <div>{eventsOfTheDay.length}</div>
+    </div>
+  );
 }
