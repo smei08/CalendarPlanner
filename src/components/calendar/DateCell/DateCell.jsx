@@ -16,7 +16,7 @@ export default function DateCell({ cell }) {
   }-${cellDate}`;
 
   const eventsOfTheDay = eventByDate[dailyKey] || [];
-
+  console.log("test", eventsOfTheDay, dailyKey);
   const isToday =
     cell.year === today.getFullYear() &&
     cell.month === today.getMonth() &&
@@ -38,9 +38,15 @@ export default function DateCell({ cell }) {
   // console.log("CELL", cell, "isToday?", isToday);
 
   return (
-    <div>
-      <div className={className}>{cell.day}</div>
-      <div>{eventsOfTheDay.length}</div>
+    <div className={className}>
+      <div className="date-number">{cell.day}</div>
+      <div className="events-container">
+        {eventsOfTheDay.map((event) => (
+          <div className="event-pill">
+            <strong className="event-title">{event.title}</strong>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
