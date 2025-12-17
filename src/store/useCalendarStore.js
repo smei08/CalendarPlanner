@@ -8,6 +8,10 @@ export const useCalendarStore = create((set, get) => {
     currentMonth: today.getMonth(),
     currentDate: today.getDate(),
 
+    miniMode: "follow",
+    miniYear: today.getFullYear(),
+    miniMonth: today.getMonth(),
+
     goToToday: () => {
       const now = new Date();
       set({
@@ -48,6 +52,54 @@ export const useCalendarStore = create((set, get) => {
       set({
         currentMonth: newMonth,
         currentYear: newYear,
+      });
+    },
+
+    miniGoToPrevMonth: () => {
+      set({ miniMode: "independent" });
+
+      const { miniMonth, miniYear } = get();
+
+      let newMonth = miniMonth - 1;
+      let newYear = miniYear;
+
+      if (newMonth < 0) {
+        newMonth = 11;
+        newYear -= 1;
+      }
+
+      set({
+        miniMonth: newMonth,
+        miniYear: newYear,
+      });
+    },
+
+    miniGoToNextMonth: () => {
+      set({ miniMode: "independent" });
+
+      const { miniMonth, miniYear } = get();
+
+      let newMonth = miniMonth + 1;
+      let newYear = miniYear;
+
+      if (newMonth > 11) {
+        newMonth = 0;
+        newYear += 1;
+      }
+
+      set({
+        miniMonth: newMonth,
+        miniYear: newYear,
+      });
+    },
+
+    miniFollowMain: () => {
+      const { currentMonth, currentYear } = get();
+
+      set({
+        miniMode: "follow",
+        miniMonth: currentMonth,
+        miniYear: currentYear,
       });
     },
   };
