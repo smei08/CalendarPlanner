@@ -2,7 +2,7 @@
 import { useState } from "react";
 
 import Navbar from "../components/navigation/Navbar/Navbar";
-import MiniCalendarCard from "../components/calendar/MiniCalendar";
+import MiniCalendar from "../../src/components/calendar/DateCell/MiniCalendar/MiniCalendar";
 import LabelCard from "../components/notes/LabelCard";
 import NotesCard from "../components/notes/NotesCard";
 import EventFormModal from "../components/events/EventFormModal/EventFormModal";
@@ -61,7 +61,7 @@ export default function AppLayout({ children }) {
       {/* Quick panels row (shows when clasp is "open"/expanded) */}
       {!isExpanded && (
         <div className="header-cards">
-          <MiniCalendarCard />
+          <MiniCalendar />
           <LabelCard />
           <NotesCard />
         </div>

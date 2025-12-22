@@ -1,0 +1,22 @@
+.mini-weekday {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 15px;
+}
+.mini-weekday {
+  border: 0.5px solid black;
+  padding: 5px 8px;
+  border-radius: 5px;
+  background-color: rgba(236, 192, 255, 0.5);
+}
+.mini-cell-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr); /* 7 columns */
+  grid-template-rows: repeat(6, 1fr);
+  text-align: center;
+  color: black;
+  min-height: 0;
+}
