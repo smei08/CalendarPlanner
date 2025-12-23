@@ -42,7 +42,10 @@ export default function DateCell({ cell }) {
       <div className="date-number">{cell.day}</div>
       <div className="events-container">
         {eventsOfTheDay.map((event) => (
-          <div className="event-pill">
+          <div
+            key={`${dailyKey}-${event.id}-${event.time}`}
+            className="event-pill"
+          >
             <strong className="event-title">{event.title}</strong>
           </div>
         ))}

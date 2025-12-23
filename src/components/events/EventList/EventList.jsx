@@ -1,6 +1,13 @@
 import { useEventStore } from "../../../store/useEventStore";
+import { useState } from "react";
+import EventFormModal from "../EventFormModal/EventFormModal";
 
 export default function EventList({ sortMode = "date", timeFilter = "all" }) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingDateKey, setDateKey] = useState(null);
+  const [editingEventId, setEventId] = useState(null);
+  const [editingEventData, setEventData] = useState(null);
+
   // -----------------------------------------
   // 1. GET DATA FROM STORE
   // -----------------------------------------
@@ -31,6 +38,13 @@ export default function EventList({ sortMode = "date", timeFilter = "all" }) {
   //   ["2025-12-10", [event3]],
   // ]
   const entries = Object.entries(eventByDate);
+
+  const onClickEdit = (event, dateKey) => {
+    setDateKey(dateKey);
+    setEventId(event.id);
+    setEventData(event);
+    setIsModalOpen(true);
+  };
 
   // -----------------------------------------
   // 4. SORT DATES ASCENDING (default view)
@@ -142,7 +156,10 @@ export default function EventList({ sortMode = "date", timeFilter = "all" }) {
             <div className="eventlist-events-column">
               <ul style={{ listStyle: "none", margin: 0, padding: 0 }}>
                 {sortedEvents.map((event) => (
-                  <li key={event.id} style={{ marginBottom: "8px" }}>
+                  <li
+                    key={`${dateKey}-${event.id}`}
+                    style={{ marginBottom: "8px" }}
+                  >
                     <div style={{ display: "flex", gap: "8px" }}>
                       <strong>{event.title}</strong>
                       {event.time && (
@@ -174,11 +191,7 @@ export default function EventList({ sortMode = "date", timeFilter = "all" }) {
                     )}
 
                     {/* Buttons */}
-                    <button
-                      onClick={() =>
-                        updateEvent(dateKey, event.id, { title: "UPDATED!" })
-                      }
-                    >
+                    <button onClick={() => onClickEdit(event, dateKey)}>
                       edit
                     </button>
 
@@ -189,6 +202,12 @@ export default function EventList({ sortMode = "date", timeFilter = "all" }) {
                 ))}
               </ul>
             </div>
+            {isModalOpen && (
+              <EventFormModal
+                eventData={editingEventData}
+                onClose={() => setIsModalOpen(false)}
+              />
+            )}
           </div>
         );
       })}
