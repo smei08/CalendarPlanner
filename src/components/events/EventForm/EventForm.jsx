@@ -1,8 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./eventForm.css";
-import { useEventStore } from "../../../store/useEventStore";
 
-export default function EventForm({ onClose }) {
+export default function EventForm({ onClose, initialEvent, onSave }) {
   const [title, setTitle] = useState("");
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
@@ -11,7 +10,7 @@ export default function EventForm({ onClose }) {
 
   const [error, setError] = useState("");
 
-  const createEvent = useEventStore((state) => state.createEvent);
+  // const createEvent = useEventStore((state) => state.createEvent);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -23,7 +22,7 @@ export default function EventForm({ onClose }) {
 
     setError("");
 
-    const newEvent = {
+    const draftEvent = {
       title: title.trim(),
       date,
       time,
@@ -31,19 +30,40 @@ export default function EventForm({ onClose }) {
       description: description.trim(),
     };
 
-    createEvent(newEvent);
+    onSave(draftEvent);
 
     onClose();
   }
 
+  useEffect(() => {
+    if (initialEvent) {
+      // Edit mode → prefill form
+      setTitle(initialEvent.title || "");
+      setDate(initialEvent.date || "");
+      setTime(initialEvent.time || "");
+      setLabel(initialEvent.label || "");
+      setDescription(initialEvent.description || "");
+    } else {
+      // Create mode → reset form
+      setTitle("");
+      setDate("");
+      setTime("");
+      setLabel("");
+      setDescription("");
+    }
+
+    // Clear errors when switching modes/events
+    setError("");
+  }, [initialEvent]);
+
   return (
     <div className="form-container">
-      <div className="form-header">
+      {/* <div className="form-header">
         <h2>Plan your day</h2>
         <button type="button" className="form-close-button" onClick={onClose}>
           ×
         </button>
-      </div>
+      </div> */}
 
       {error && <div className="form-error">{error}</div>}
 

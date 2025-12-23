@@ -10,6 +10,7 @@ import EventOverviewPage from "../pages/EventOverview/EventOverviewPage";
 
 import "./applayout.css";
 import { useCalendarStore } from "../store/useCalendarStore";
+import { useEventStore } from "../store/useEventStore";
 
 export default function AppLayout({ children }) {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -18,6 +19,7 @@ export default function AppLayout({ children }) {
   const [activeView, setActiveView] = useState("calendar");
 
   const goToToday = useCalendarStore((state) => state.goToToday);
+  const createEvent = useEventStore((state) => state.createEvent);
 
   const toggleExpand = () => {
     setIsExpanded((prev) => !prev);
@@ -40,6 +42,11 @@ export default function AppLayout({ children }) {
     goToToday();
   };
 
+  function handleSave(draftEvent) {
+    createEvent(draftEvent);
+    setShowEventForm(false);
+  }
+
   return (
     <div className="app-layout">
       {/* Top navbar */}
@@ -55,7 +62,10 @@ export default function AppLayout({ children }) {
 
       {/* Event modal */}
       {showEventForm && (
-        <EventFormModal onClose={() => setShowEventForm(false)} />
+        <EventFormModal
+          onClose={() => setShowEventForm(false)}
+          onSave={handleSave}
+        />
       )}
 
       {/* Quick panels row (shows when clasp is "open"/expanded) */}
