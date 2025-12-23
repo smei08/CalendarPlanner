@@ -41,9 +41,9 @@ export default function DateCell({ cell }) {
     <div className={className}>
       <div className="date-number">{cell.day}</div>
       <div className="events-container">
-        {eventsOfTheDay.map((event) => (
+        {eventsOfTheDay.map((event, index) => (
           <div
-            key={`${dailyKey}-${event.id}-${event.time}`}
+            key={`${dailyKey}-${event.id}-${event.time || "notime"}-${index}`}
             className="event-pill"
           >
             <strong className="event-title">{event.title}</strong>

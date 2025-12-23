@@ -10,8 +10,6 @@ export default function EventForm({ onClose, initialEvent, onSave }) {
 
   const [error, setError] = useState("");
 
-  // const createEvent = useEventStore((state) => state.createEvent);
-
   function handleSubmit(e) {
     e.preventDefault();
 

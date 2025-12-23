@@ -61,8 +61,8 @@ export default function MiniCalendar() {
         </div>
       </div>
       <div className="mini-weekday">
-        {weekDays.map((weekday) => (
-          <div className="mini-weekday" key={weekday + 1}>
+        {weekDays.map((weekday, index) => (
+          <div className="mini-weekday" key={`${weekday}-${index}`}>
             {weekday}
           </div>
         ))}
