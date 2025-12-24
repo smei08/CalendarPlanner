@@ -67,6 +67,14 @@ export default function EventList({ sortMode = "date", timeFilter = "all" }) {
     }
   }
 
+  function handleDelete(dateKey, event) {
+    deleteEvent(dateKey, event.id);
+    setIsToastOpen(true);
+    setToastMessage("Event Deleted");
+
+    handleCloseModal();
+  }
+
   function handleCloseModal() {
     setDateKey(null);
     setEventId(null);
@@ -80,12 +88,13 @@ export default function EventList({ sortMode = "date", timeFilter = "all" }) {
   }
 
   useEffect(() => {
-    if (isToastOpen) {
-      setTimeout(closeToast, 2000);
-    } else if (isToastOpen === false) {
-      clearTimeout();
-    }
-    clearTimeout();
+    if (!isToastOpen) return;
+
+    const timerId = setTimeout(() => {
+      closeToast();
+    }, 2000);
+
+    return () => clearTimeout(timerId);
   }, [isToastOpen]);
 
   // -----------------------------------------
@@ -238,7 +247,7 @@ export default function EventList({ sortMode = "date", timeFilter = "all" }) {
                         edit
                       </button>
 
-                      <button onClick={() => deleteEvent(dateKey, event.id)}>
+                      <button onClick={() => handleDelete(dateKey, event)}>
                         delete
                       </button>
                     </li>
