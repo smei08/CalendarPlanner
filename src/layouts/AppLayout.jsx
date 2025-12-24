@@ -1,5 +1,5 @@
 // src/layouts/AppLayout.jsx
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import Navbar from "../components/navigation/Navbar/Navbar";
 import MiniCalendar from "../../src/components/calendar/DateCell/MiniCalendar/MiniCalendar";
@@ -7,6 +7,7 @@ import LabelCard from "../components/notes/LabelCard";
 import NotesCard from "../components/notes/NotesCard";
 import EventFormModal from "../components/events/EventFormModal/EventFormModal";
 import EventOverviewPage from "../pages/EventOverview/EventOverviewPage";
+import EventToast from "../components/events/EventToast/EventToast";
 
 import "./applayout.css";
 import { useCalendarStore } from "../store/useCalendarStore";
@@ -20,6 +21,8 @@ export default function AppLayout({ children }) {
 
   const goToToday = useCalendarStore((state) => state.goToToday);
   const createEvent = useEventStore((state) => state.createEvent);
+  const [toastMessage, setToastMessage] = useState(null);
+  const [isToastOpen, setIsToastOpen] = useState(false);
 
   const toggleExpand = () => {
     setIsExpanded((prev) => !prev);
@@ -45,7 +48,23 @@ export default function AppLayout({ children }) {
   function handleSave(draftEvent) {
     createEvent(draftEvent);
     setShowEventForm(false);
+    setIsToastOpen(true);
+    setToastMessage("Event Saved");
   }
+
+  function closeToast() {
+    setIsToastOpen(false);
+    setToastMessage("");
+  }
+
+  useEffect(() => {
+    if (isToastOpen) {
+      setTimeout(closeToast, 2000);
+    } else if (isToastOpen === false) {
+      clearTimeout();
+    }
+    clearTimeout();
+  }, [isToastOpen]);
 
   return (
     <div className="app-layout">
@@ -65,7 +84,12 @@ export default function AppLayout({ children }) {
         <EventFormModal
           onClose={() => setShowEventForm(false)}
           onSave={handleSave}
+          onClick={closeToast}
+          message={toastMessage}
         />
+      )}
+      {isToastOpen && (
+        <EventToast message={toastMessage} onClose={closeToast} />
       )}
 
       {/* Quick panels row (shows when clasp is "open"/expanded) */}

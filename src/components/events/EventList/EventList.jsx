@@ -1,12 +1,15 @@
 import { useEventStore } from "../../../store/useEventStore";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import EventFormModal from "../EventFormModal/EventFormModal";
+import EventToast from "../EventToast/EventToast";
 
 export default function EventList({ sortMode = "date", timeFilter = "all" }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingDateKey, setDateKey] = useState(null);
   const [editingEventId, setEventId] = useState(null);
   const [editingEventData, setEventData] = useState(null);
+  const [toastMessage, setToastMessage] = useState(null);
+  const [isToastOpen, setIsToastOpen] = useState(false);
 
   // -----------------------------------------
   // 1. GET DATA FROM STORE
@@ -50,8 +53,17 @@ export default function EventList({ sortMode = "date", timeFilter = "all" }) {
   function handleSave(draftEvent) {
     if (editingEventId === null) {
       createEvent(draftEvent);
+      setIsToastOpen(true);
+      setToastMessage("Event Saved");
+
+      handleCloseModal();
     } else {
       updateEvent(editingDateKey, editingEventId, draftEvent);
+
+      setIsToastOpen(true);
+      setToastMessage("Event Saved");
+
+      handleCloseModal();
     }
   }
 
@@ -61,6 +73,20 @@ export default function EventList({ sortMode = "date", timeFilter = "all" }) {
     setEventData(null);
     setIsModalOpen(false);
   }
+
+  function closeToast() {
+    setIsToastOpen(false);
+    setToastMessage("");
+  }
+
+  useEffect(() => {
+    if (isToastOpen) {
+      setTimeout(closeToast, 2000);
+    } else if (isToastOpen === false) {
+      clearTimeout();
+    }
+    clearTimeout();
+  }, [isToastOpen]);
 
   // -----------------------------------------
   // 4. SORT DATES ASCENDING (default view)
@@ -229,6 +255,9 @@ export default function EventList({ sortMode = "date", timeFilter = "all" }) {
           onClose={handleCloseModal}
           onSave={handleSave}
         />
+      )}
+      {isToastOpen && (
+        <EventToast message={toastMessage} onClose={closeToast} />
       )}
     </div>
   );

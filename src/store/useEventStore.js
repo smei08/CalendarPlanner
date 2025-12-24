@@ -26,9 +26,9 @@ export const useEventStore = create(
       };
 
       set((state) => {
-        console.log("before: ", state.eventByDate);
+        // console.log("before: ", state.eventByDate);
         const existingForDate = state.eventByDate[dateKey] || [];
-        console.log("after: ", state.eventByDate);
+        // console.log("after: ", state.eventByDate);
         return {
           eventByDate: {
             ...state.eventByDate,
@@ -41,7 +41,7 @@ export const useEventStore = create(
 
     updateEvent: (dateKey, eventId, eventUpdate) => {
       set((state) => {
-        console.log("old: ", state.eventByDate);
+        // console.log("old: ", state.eventByDate);
         const existingForDate = state.eventByDate[dateKey] || [];
 
         const updatedDate = existingForDate.map((event) => {

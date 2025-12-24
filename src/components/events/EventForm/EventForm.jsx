@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import "./eventForm.css";
 
-export default function EventForm({ onClose, initialEvent, onSave }) {
+export default function EventForm({ onClose, initialEvent, onSave, message }) {
   const [title, setTitle] = useState("");
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
