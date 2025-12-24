@@ -39,21 +39,54 @@ export const useEventStore = create(
       return newEvent;
     },
 
-    updateEvent: (dateKey, eventId, eventUpdate) => {
+    updateEvent: (oldDateKey, eventId, eventUpdate) => {
       set((state) => {
-        // console.log("old: ", state.eventByDate);
-        const existingForDate = state.eventByDate[dateKey] || [];
+        const fromKey = oldDateKey;
 
-        const updatedDate = existingForDate.map((event) => {
-          return event.id === eventId ? { ...event, ...eventUpdate } : event;
-        });
+        // Your form sends `date`, but your store uses `dateKey`.
+        const toKey = eventUpdate.date ?? eventUpdate.dateKey ?? oldDateKey;
 
-        return {
-          eventByDate: {
-            ...state.eventByDate,
-            [dateKey]: updatedDate,
-          },
+        const fromList = state.eventByDate[fromKey] || [];
+
+        // Find the event we are editing
+        const target = fromList.find((e) => e.id === eventId);
+        if (!target) return state; // nothing to update
+
+        // Build the updated event object (make sure dateKey stays consistent)
+        const updatedEvent = {
+          ...target,
+          ...eventUpdate,
+          dateKey: toKey,
         };
+
+        // Case A: same date bucket → just replace inside the array
+        if (toKey === fromKey) {
+          const updatedList = fromList.map((e) =>
+            e.id === eventId ? updatedEvent : e
+          );
+
+          return {
+            eventByDate: {
+              ...state.eventByDate,
+              [fromKey]: updatedList,
+            },
+          };
+        }
+
+        // Case B: date changed → remove from old bucket and add to new bucket
+        const newFromList = fromList.filter((e) => e.id !== eventId);
+        const toList = state.eventByDate[toKey] || [];
+
+        const nextEventByDate = { ...state.eventByDate };
+
+        // update/remove old bucket
+        if (newFromList.length === 0) delete nextEventByDate[fromKey];
+        else nextEventByDate[fromKey] = newFromList;
+
+        // add to new bucket
+        nextEventByDate[toKey] = [...toList, updatedEvent];
+
+        return { eventByDate: nextEventByDate };
       });
     },
 
