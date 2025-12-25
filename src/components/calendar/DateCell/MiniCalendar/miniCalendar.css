@@ -1,11 +1,11 @@
-.mini-weekday {
+.mini-weekday-row {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   align-items: flex-start;
   gap: 15px;
 }
-.mini-weekday {
+.mini-weekday-cell {
   border: 0.5px solid black;
   padding: 5px 8px;
   border-radius: 5px;
@@ -19,4 +19,15 @@
   text-align: center;
   color: black;
   min-height: 0;
+}
+.mini-date-cell {
+  padding: 6px;
+  border-radius: 6px;
+}
+.mini-date-cell--faded {
+  opacity: 0.35; /* easiest “fade” */
+}
+.mini-date-cell--today {
+  border: 1px solid red;
+  background-color: white;
 }

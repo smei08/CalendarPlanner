@@ -14,7 +14,7 @@ import { useCalendarStore } from "../store/useCalendarStore";
 import { useEventStore } from "../store/useEventStore";
 
 export default function AppLayout({ children }) {
-  const [isExpanded, setIsExpanded] = useState(false);
+  // const [isExpanded, setIsExpanded] = useState(false);
   const [showEventForm, setShowEventForm] = useState(false);
   // "calendar" | "events"
   const [activeView, setActiveView] = useState("calendar");
@@ -24,9 +24,9 @@ export default function AppLayout({ children }) {
   const [toastMessage, setToastMessage] = useState(null);
   const [isToastOpen, setIsToastOpen] = useState(false);
 
-  const toggleExpand = () => {
-    setIsExpanded((prev) => !prev);
-  };
+  // const toggleExpand = () => {
+  //   setIsExpanded((prev) => !prev);
+  // };
 
   const toggleOpen = () => {
     setShowEventForm(true);
@@ -72,7 +72,7 @@ export default function AppLayout({ children }) {
       <header className="top-header">
         <Navbar
           onToggleOpen={toggleOpen}
-          onToggleExpand={toggleExpand}
+          // onToggleExpand={toggleExpand}
           onClickCalendar={handleClickCalendar}
           onClickEvent={handleClickEvent}
           onClickToday={handleClickToday}
@@ -92,14 +92,14 @@ export default function AppLayout({ children }) {
         <EventToast message={toastMessage} onClose={closeToast} />
       )}
 
-      {/* Quick panels row (shows when clasp is "open"/expanded) */}
+      {/* Quick panels row (shows when clasp is "open"/expanded)
       {!isExpanded && (
         <div className="header-cards">
           <MiniCalendar />
           <LabelCard />
           <NotesCard />
         </div>
-      )}
+      )} */}
 
       {/* Main page content: calendar vs event overview */}
       <main className="calendar-content">

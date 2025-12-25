@@ -6,7 +6,7 @@ import Avatar from "../../ui/Avatar";
 import "./navbar.css";
 
 export default function Navbar({
-  onToggleExpand,
+  // onToggleExpand,
   onToggleOpen,
   onClickCalendar,
   onClickEvent,
@@ -17,7 +17,7 @@ export default function Navbar({
       {/* left section: avatar, clasp, add */}
       <div className="nav-left">
         <Avatar />
-        <IconButton variant="clasp" onClick={onToggleExpand} />
+        {/* <IconButton variant="clasp" onClick={onToggleExpand} /> */}
         <IconButton variant="add" onClick={onToggleOpen} />
       </div>
 

@@ -7,6 +7,7 @@ export default function MiniCalendar() {
   const miniMonth = useCalendarStore((state) => state.miniMonth);
 
   const miniDays = [];
+  const today = new Date();
 
   const current = new Date(miniYear, miniMonth + 1, 0);
   const firstDayIndex = new Date(miniYear, miniMonth, 1).getDay();
@@ -60,17 +61,37 @@ export default function MiniCalendar() {
           {miniYear}
         </div>
       </div>
-      <div className="mini-weekday">
+      <div className="mini-weekday-row">
         {weekDays.map((weekday, index) => (
-          <div className="mini-weekday" key={`${weekday}-${index}`}>
+          <div className="mini-weekday-cell" key={`${weekday}-${index}`}>
             {weekday}
           </div>
         ))}
       </div>
       <div className="mini-cell-grid">
-        {miniDays.map((cell) => (
-          <div key={`${cell.year}-${cell.month}-${cell.day}`}>{cell.day}</div>
-        ))}
+        {miniDays.map((cell) => {
+          const isFaded = cell.monthType !== "current";
+          const cellClass = isFaded
+            ? "mini-date-cell mini-date-cell--faded"
+            : "mini-date-cell";
+
+          const isToday =
+            cell.year === today.getFullYear() &&
+            cell.month === today.getMonth() &&
+            cell.day === today.getDate();
+
+          if (isToday) {
+            cellClass += " mini-date-cell--today";
+          }
+          return (
+            <div
+              key={`${cell.year}-${cell.month}-${cell.day}`}
+              className={cellClass}
+            >
+              {cell.day}
+            </div>
+          );
+        })}
       </div>
     </div>
   );
