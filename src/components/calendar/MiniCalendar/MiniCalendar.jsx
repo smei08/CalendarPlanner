@@ -1,4 +1,4 @@
-import { useCalendarStore } from "../../../../store/useCalendarStore";
+import { useCalendarStore } from "../../../store/useCalendarStore";
 import "./miniCalendar.css";
 
 export default function MiniCalendar() {
