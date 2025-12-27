@@ -74,6 +74,7 @@ export default function EventForm({ onClose, initialEvent, onSave, message }) {
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
+          required
         />
 
         {/* DATE + TIME */}
@@ -86,6 +87,7 @@ export default function EventForm({ onClose, initialEvent, onSave, message }) {
               name="date"
               value={date}
               onChange={(e) => setDate(e.target.value)}
+              required
             />
           </label>
 
