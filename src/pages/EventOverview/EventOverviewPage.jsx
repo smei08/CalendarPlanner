@@ -3,7 +3,6 @@ import { useState } from "react";
 import EventList from "../../components/events/EventList/EventList";
 import "./eventOverviewPage.css";
 import MiniCalendar from "../../components/calendar/MiniCalendar/MiniCalendar";
-import NotesCard from "../../components/notes/NotesCard";
 
 export default function EventOverviewPage() {
   const [sortMode, setSortMode] = useState("date");

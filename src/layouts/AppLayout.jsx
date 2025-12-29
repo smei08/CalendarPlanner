@@ -1,6 +1,5 @@
-// src/layouts/AppLayout.jsx
 import { useState, useEffect } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 
 import Navbar from "../components/navigation/Navbar/Navbar";
 import EventFormModal from "../components/events/EventFormModal/EventFormModal";
@@ -11,7 +10,7 @@ import { useCalendarStore } from "../store/useCalendarStore";
 import { useEventStore } from "../store/useEventStore";
 import { useUIStore } from "../store/useUIStore";
 
-export default function AppLayout({ children }) {
+export default function AppLayout() {
   const [showEventForm, setShowEventForm] = useState(false);
 
   const goToToday = useCalendarStore((state) => state.goToToday);
@@ -21,10 +20,12 @@ export default function AppLayout({ children }) {
   const toastMessage = useUIStore((state) => state.toastMessage);
   const showToast = useUIStore((state) => state.showToast);
   const hideToast = useUIStore((state) => state.hideToast);
+  const navigate = useNavigate();
 
   const toggleOpen = () => setShowEventForm(true);
 
   const handleClickToday = () => {
+    navigate("/calendar");
     goToToday();
   };
 

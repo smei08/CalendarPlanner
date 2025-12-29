@@ -1,18 +1,18 @@
-// import { useState } from "react";
-import "./App.css";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import AppLayout from "./layouts/AppLayout";
 import DashboardPage from "./pages/Dashboard/DashboardPage";
+import EventOverviewPage from "./pages/EventOverview/EventOverviewPage";
 
-function App() {
+export default function App() {
   return (
-    <div>
-      <div>
-        <AppLayout>
-          <DashboardPage />
-        </AppLayout>
-      </div>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route element={<AppLayout />}>
+          <Route path="/" element={<Navigate to="/calendar" replace />} />
+          <Route path="/calendar" element={<DashboardPage />} />
+          <Route path="/events" element={<EventOverviewPage />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
-
-export default App;
