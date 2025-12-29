@@ -1,46 +1,30 @@
+// src/components/events/EventList/EventList.jsx
 import { useEventStore } from "../../../store/useEventStore";
-import { useState, useEffect } from "react";
+import { useUIStore } from "../../../store/useUIStore";
+import { useState } from "react";
 import EventFormModal from "../EventFormModal/EventFormModal";
-import EventToast from "../EventToast/EventToast";
 
 export default function EventList({ sortMode = "date", timeFilter = "all" }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingDateKey, setDateKey] = useState(null);
   const [editingEventId, setEventId] = useState(null);
   const [editingEventData, setEventData] = useState(null);
-  const [toastMessage, setToastMessage] = useState(null);
-  const [isToastOpen, setIsToastOpen] = useState(false);
 
-  // -----------------------------------------
-  // 1. GET DATA FROM STORE
-  // -----------------------------------------
-  // eventByDate looks like:
-  // {
-  //   "2025-12-09": [event1, event2],
-  //   "2025-12-10": [event3],
-  // }
+  // Store actions/data
   const createEvent = useEventStore((state) => state.createEvent);
   const eventByDate = useEventStore((state) => state.eventByDate);
   const updateEvent = useEventStore((state) => state.updateEvent);
   const deleteEvent = useEventStore((state) => state.deleteEvent);
 
-  // -----------------------------------------
-  // 2. HANDLE EMPTY STATE (nothing to show)
-  // -----------------------------------------
+  // ✅ Global toast trigger
+  const showToast = useUIStore((state) => state.showToast);
+
   if (!eventByDate || Object.keys(eventByDate).length === 0) {
     return (
       <div style={{ color: "black", padding: "16px" }}>No events yet.</div>
     );
   }
 
-  // -----------------------------------------
-  // 3. CONVERT eventsByDate OBJECT → ARRAY
-  // -----------------------------------------
-  // Object.entries(eventByDate) gives:
-  // [
-  //   ["2025-12-09", [event1, event2]],
-  //   ["2025-12-10", [event3]],
-  // ]
   const entries = Object.entries(eventByDate);
 
   const onClickEdit = (event, dateKey) => {
@@ -53,25 +37,18 @@ export default function EventList({ sortMode = "date", timeFilter = "all" }) {
   function handleSave(draftEvent) {
     if (editingEventId === null) {
       createEvent(draftEvent);
-      setIsToastOpen(true);
-      setToastMessage("Event Saved");
-
+      showToast("Event Saved");
       handleCloseModal();
     } else {
       updateEvent(editingDateKey, editingEventId, draftEvent);
-
-      setIsToastOpen(true);
-      setToastMessage("Event Saved");
-
+      showToast("Event Saved");
       handleCloseModal();
     }
   }
 
   function handleDelete(dateKey, event) {
     deleteEvent(dateKey, event.id);
-    setIsToastOpen(true);
-    setToastMessage("Event Deleted");
-
+    showToast("Event Deleted");
     handleCloseModal();
   }
 
@@ -82,78 +59,33 @@ export default function EventList({ sortMode = "date", timeFilter = "all" }) {
     setIsModalOpen(false);
   }
 
-  function closeToast() {
-    setIsToastOpen(false);
-    setToastMessage("");
-  }
-
-  useEffect(() => {
-    if (!isToastOpen) return;
-
-    const timerId = setTimeout(() => {
-      closeToast();
-    }, 2000);
-
-    return () => clearTimeout(timerId);
-  }, [isToastOpen]);
-
-  // -----------------------------------------
-  // 4. SORT DATES ASCENDING (default view)
-  // -----------------------------------------
-  // Sort by dateKey (yyy-mm-dd string)
+  // --- sorting/filtering logic stays the same ---
   const sortedEntries = entries.sort((a, b) => a[0].localeCompare(b[0]));
 
-  // -----------------------------------------
-  // 5. FILTER: TODAY
-  // -----------------------------------------
-  // Find today's date in yyyy-mm-dd format
   const today = new Date();
-  const formattedDate = today.toISOString().slice(0, 10); // "2025-12-09"
+  const formattedDate = today.toISOString().slice(0, 10);
   const currentMonthNumber = formattedDate.slice(5, 7);
   const year = formattedDate.slice(0, 4);
 
-  // Filter only the entries where the dateKey matches today
-  const todayFilter = sortedEntries.filter(([dateKey, events]) => {
-    return dateKey === formattedDate;
-  });
+  const todayFilter = sortedEntries.filter(
+    ([dateKey]) => dateKey === formattedDate
+  );
 
-  const monthFilter = sortedEntries.filter(([dateKey, events]) => {
+  const monthFilter = sortedEntries.filter(([dateKey]) => {
     return (
       dateKey.slice(5, 7) === currentMonthNumber && dateKey.slice(0, 4) === year
     );
   });
 
-  // -----------------------------------------
-  // 6. DECIDE WHICH ARRAY WE WILL RENDER
-  // -----------------------------------------
-  // By default → show all sortedEntries
   let finalEntries = sortedEntries;
+  if (timeFilter === "today") finalEntries = todayFilter;
+  if (timeFilter === "this-month") finalEntries = monthFilter;
 
-  // If user chose “today”, override finalEntries
-  if (timeFilter === "today") {
-    finalEntries = todayFilter;
-  }
-  if (timeFilter === "this-month") {
-    finalEntries = monthFilter;
-    console.log("month pressed");
-  }
-
-  // (Later you can add “this week”, “this month”, etc.)
-
-  // -----------------------------------------
-  // 7. RETURN RENDERED UI
-  // -----------------------------------------
   return (
     <div>
       <div className="eventlist-container" style={{ color: "black" }}>
-        {/* 🔽 MAP OVER FINAL ENTRIES (ONLY ONE MAP!) */}
         {finalEntries.map(([dateKey, events]) => {
-          //----------------------------------------
-          // 8. PARSE THE DATE TEXT
-          //----------------------------------------
-          // dateKey = "2025-12-09"
           const [y, m, day] = dateKey.split("-");
-
           const dateObj = new Date(Number(y), Number(m) - 1, Number(day));
 
           const weekday = dateObj.toLocaleDateString("en-US", {
@@ -165,10 +97,6 @@ export default function EventList({ sortMode = "date", timeFilter = "all" }) {
           const dayOfMonth = dateObj.getDate();
           const year = dateObj.getFullYear();
 
-          //----------------------------------------
-          // 9. SORT EVENTS INSIDE EACH DATE GROUP
-          //----------------------------------------
-          // Copy events before sorting (good practice)
           let sortedEvents = [...events];
 
           if (sortMode === "label") {
@@ -179,9 +107,6 @@ export default function EventList({ sortMode = "date", timeFilter = "all" }) {
             });
           }
 
-          //----------------------------------------
-          // 10. RENDER THE DATE GROUP + EVENTS
-          //----------------------------------------
           return (
             <div
               key={dateKey}
@@ -194,7 +119,6 @@ export default function EventList({ sortMode = "date", timeFilter = "all" }) {
                 borderBottom: "1px solid #ddd",
               }}
             >
-              {/* LEFT COLUMN */}
               <div className="eventlist-date-column">
                 <div style={{ fontWeight: "bold" }}>
                   {monthLabel} {dayOfMonth}, {year}
@@ -204,7 +128,6 @@ export default function EventList({ sortMode = "date", timeFilter = "all" }) {
                 </div>
               </div>
 
-              {/* RIGHT COLUMN – EVENTS */}
               <div className="eventlist-events-column">
                 <ul style={{ listStyle: "none", margin: 0, padding: 0 }}>
                   {sortedEvents.map((event) => (
@@ -242,11 +165,9 @@ export default function EventList({ sortMode = "date", timeFilter = "all" }) {
                         </div>
                       )}
 
-                      {/* Buttons */}
                       <button onClick={() => onClickEdit(event, dateKey)}>
                         edit
                       </button>
-
                       <button onClick={() => handleDelete(dateKey, event)}>
                         delete
                       </button>
@@ -258,15 +179,13 @@ export default function EventList({ sortMode = "date", timeFilter = "all" }) {
           );
         })}
       </div>
+
       {isModalOpen && (
         <EventFormModal
           eventData={editingEventData}
           onClose={handleCloseModal}
           onSave={handleSave}
         />
-      )}
-      {isToastOpen && (
-        <EventToast message={toastMessage} onClose={closeToast} />
       )}
     </div>
   );

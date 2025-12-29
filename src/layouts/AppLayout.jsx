@@ -2,9 +2,6 @@
 import { useState, useEffect } from "react";
 
 import Navbar from "../components/navigation/Navbar/Navbar";
-import MiniCalendar from "../../src/components/calendar/DateCell/MiniCalendar/MiniCalendar";
-import LabelCard from "../components/notes/LabelCard";
-import NotesCard from "../components/notes/NotesCard";
 import EventFormModal from "../components/events/EventFormModal/EventFormModal";
 import EventOverviewPage from "../pages/EventOverview/EventOverviewPage";
 import EventToast from "../components/events/EventToast/EventToast";
@@ -12,33 +9,25 @@ import EventToast from "../components/events/EventToast/EventToast";
 import "./applayout.css";
 import { useCalendarStore } from "../store/useCalendarStore";
 import { useEventStore } from "../store/useEventStore";
+import { useUIStore } from "../store/useUIStore";
 
 export default function AppLayout({ children }) {
-  // const [isExpanded, setIsExpanded] = useState(false);
   const [showEventForm, setShowEventForm] = useState(false);
-  // "calendar" | "events"
   const [activeView, setActiveView] = useState("calendar");
 
   const goToToday = useCalendarStore((state) => state.goToToday);
   const createEvent = useEventStore((state) => state.createEvent);
-  const [toastMessage, setToastMessage] = useState(null);
-  const [isToastOpen, setIsToastOpen] = useState(false);
 
-  // const toggleExpand = () => {
-  //   setIsExpanded((prev) => !prev);
-  // };
+  const isToastOpen = useUIStore((state) => state.isToastOpen);
+  const toastMessage = useUIStore((state) => state.toastMessage);
+  const showToast = useUIStore((state) => state.showToast);
+  const hideToast = useUIStore((state) => state.hideToast);
 
-  const toggleOpen = () => {
-    setShowEventForm(true);
-  };
+  const toggleOpen = () => setShowEventForm(true);
 
-  const handleClickCalendar = () => {
-    setActiveView("calendar");
-  };
+  const handleClickCalendar = () => setActiveView("calendar");
 
-  const handleClickEvent = () => {
-    setActiveView("events");
-  };
+  const handleClickEvent = () => setActiveView("events");
 
   const handleClickToday = () => {
     setActiveView("calendar");
@@ -48,23 +37,17 @@ export default function AppLayout({ children }) {
   function handleSave(draftEvent) {
     createEvent(draftEvent);
     setShowEventForm(false);
-    setIsToastOpen(true);
-    setToastMessage("Event Saved");
-  }
 
-  function closeToast() {
-    setIsToastOpen(false);
-    setToastMessage("");
+    showToast("EVENT SAVED");
   }
 
   useEffect(() => {
-    if (isToastOpen) {
-      setTimeout(closeToast, 2000);
-    } else if (isToastOpen === false) {
-      clearTimeout();
-    }
-    clearTimeout();
-  }, [isToastOpen]);
+    if (!isToastOpen) return;
+    const timerID = setTimeout(() => {
+      hideToast();
+    }, 2000);
+    return () => clearTimeout(timerID);
+  }, [isToastOpen, hideToast]);
 
   return (
     <div className="app-layout">
@@ -72,7 +55,6 @@ export default function AppLayout({ children }) {
       <header className="top-header">
         <Navbar
           onToggleOpen={toggleOpen}
-          // onToggleExpand={toggleExpand}
           onClickCalendar={handleClickCalendar}
           onClickEvent={handleClickEvent}
           onClickToday={handleClickToday}
@@ -84,22 +66,10 @@ export default function AppLayout({ children }) {
         <EventFormModal
           onClose={() => setShowEventForm(false)}
           onSave={handleSave}
-          onClick={closeToast}
-          message={toastMessage}
         />
       )}
-      {isToastOpen && (
-        <EventToast message={toastMessage} onClose={closeToast} />
-      )}
 
-      {/* Quick panels row (shows when clasp is "open"/expanded)
-      {!isExpanded && (
-        <div className="header-cards">
-          <MiniCalendar />
-          <LabelCard />
-          <NotesCard />
-        </div>
-      )} */}
+      {isToastOpen && <EventToast message={toastMessage} onClose={hideToast} />}
 
       {/* Main page content: calendar vs event overview */}
       <main className="calendar-content">
