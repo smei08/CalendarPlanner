@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import "./eventForm.css";
+import { useNavigate } from "react-router-dom";
 
 export default function EventForm({ onClose, initialEvent, onSave, message }) {
   const [title, setTitle] = useState("");
@@ -9,6 +10,8 @@ export default function EventForm({ onClose, initialEvent, onSave, message }) {
   const [description, setDescription] = useState("");
 
   const [error, setError] = useState("");
+
+  const navigate = useNavigate();
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -31,13 +34,14 @@ export default function EventForm({ onClose, initialEvent, onSave, message }) {
     onSave(draftEvent);
 
     onClose();
+    navigate("/events");
   }
 
   useEffect(() => {
     if (initialEvent) {
       // Edit mode → prefill form
       setTitle(initialEvent.title || "");
-      setDate(initialEvent.date || "");
+      setDate(initialEvent.dateKey || "");
       setTime(initialEvent.time || "");
       setLabel(initialEvent.label || "");
       setDescription(initialEvent.description || "");

@@ -57,8 +57,7 @@ export default function MiniCalendar() {
     <div className="mini-calendar-container">
       <div className="mini-header">
         <div className="mini-month">
-          {monthLabel}
-          {miniYear}
+          {monthLabel} {miniYear}
         </div>
       </div>
       <div className="mini-weekday-row">
@@ -71,7 +70,7 @@ export default function MiniCalendar() {
       <div className="mini-cell-grid">
         {miniDays.map((cell) => {
           const isFaded = cell.monthType !== "current";
-          const cellClass = isFaded
+          let cellClass = isFaded
             ? "mini-date-cell mini-date-cell--faded"
             : "mini-date-cell";
 

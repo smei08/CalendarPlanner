@@ -4,12 +4,11 @@ import Button from "../../ui/Button";
 import MonthSwitcher from "../MonthSwitcher/MonthSwitcher";
 import Avatar from "../../ui/Avatar";
 import "./navbar.css";
+import { Link } from "react-router-dom";
 
 export default function Navbar({
   // onToggleExpand,
   onToggleOpen,
-  onClickCalendar,
-  onClickEvent,
   onClickToday,
 }) {
   return (
@@ -30,10 +29,10 @@ export default function Navbar({
       </div>
 
       {/* right section: calendar + event overview */}
-      <div className="nav-right">
-        <IconButton variant="calendar" onClick={onClickCalendar} />
-        <IconButton variant="eventOverview" onClick={onClickEvent} />
-      </div>
+      <nav className="nav-right">
+        <Link to="/calendar">Calendar</Link>
+        <Link to="/events">Events</Link>
+      </nav>
     </div>
   );
 }

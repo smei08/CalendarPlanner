@@ -1,9 +1,9 @@
 // src/layouts/AppLayout.jsx
 import { useState, useEffect } from "react";
+import { Outlet } from "react-router-dom";
 
 import Navbar from "../components/navigation/Navbar/Navbar";
 import EventFormModal from "../components/events/EventFormModal/EventFormModal";
-import EventOverviewPage from "../pages/EventOverview/EventOverviewPage";
 import EventToast from "../components/events/EventToast/EventToast";
 
 import "./applayout.css";
@@ -13,7 +13,6 @@ import { useUIStore } from "../store/useUIStore";
 
 export default function AppLayout({ children }) {
   const [showEventForm, setShowEventForm] = useState(false);
-  const [activeView, setActiveView] = useState("calendar");
 
   const goToToday = useCalendarStore((state) => state.goToToday);
   const createEvent = useEventStore((state) => state.createEvent);
@@ -25,12 +24,7 @@ export default function AppLayout({ children }) {
 
   const toggleOpen = () => setShowEventForm(true);
 
-  const handleClickCalendar = () => setActiveView("calendar");
-
-  const handleClickEvent = () => setActiveView("events");
-
   const handleClickToday = () => {
-    setActiveView("calendar");
     goToToday();
   };
 
@@ -53,12 +47,7 @@ export default function AppLayout({ children }) {
     <div className="app-layout">
       {/* Top navbar */}
       <header className="top-header">
-        <Navbar
-          onToggleOpen={toggleOpen}
-          onClickCalendar={handleClickCalendar}
-          onClickEvent={handleClickEvent}
-          onClickToday={handleClickToday}
-        />
+        <Navbar onToggleOpen={toggleOpen} onClickToday={handleClickToday} />
       </header>
 
       {/* Event modal */}
@@ -73,7 +62,7 @@ export default function AppLayout({ children }) {
 
       {/* Main page content: calendar vs event overview */}
       <main className="calendar-content">
-        {activeView === "calendar" ? children : <EventOverviewPage />}
+        <Outlet />
       </main>
     </div>
   );
