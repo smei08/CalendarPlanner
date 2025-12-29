@@ -1,0 +1,105 @@
+.ui-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+
+  border: 1px solid transparent;
+  border-radius: 10px;
+
+  font-weight: 600;
+  cursor: pointer;
+
+  transition: transform 120ms ease, opacity 120ms ease,
+    background-color 120ms ease, border-color 120ms ease;
+}
+
+.ui-btn:active {
+  transform: translateY(1px);
+}
+
+.ui-btn:disabled,
+.ui-btn.is-loading {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Sizes */
+.ui-btn.size-sm {
+  height: 32px;
+  padding: 0 0.75rem;
+  font-size: 0.875rem;
+}
+
+.ui-btn.size-md {
+  height: 40px;
+  padding: 0 1rem;
+  font-size: 0.95rem;
+}
+
+.ui-btn.size-lg {
+  height: 48px;
+  padding: 0 1.25rem;
+  font-size: 1rem;
+}
+
+/* Variants */
+.ui-btn.primary {
+  background: #111827; /* dark */
+  color: white;
+}
+
+.ui-btn.primary:hover {
+  background: #0b1220;
+}
+
+.ui-btn.secondary {
+  background: white;
+  color: #111827;
+  border-color: #e5e7eb;
+}
+
+.ui-btn.secondary:hover {
+  background: #f9fafb;
+}
+
+.ui-btn.ghost {
+  background: transparent;
+  color: #111827;
+  border-color: transparent;
+}
+
+.ui-btn.ghost:hover {
+  background: #f3f4f6;
+}
+
+.ui-btn.danger {
+  background: #dc2626;
+  color: white;
+}
+
+.ui-btn.danger:hover {
+  background: #b91c1c;
+}
+
+/* Full width helper */
+.ui-btn.full-width {
+  width: 100%;
+}
+
+/* Simple spinner */
+.ui-btn .spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 999px;
+  animation: spin 0.75s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
