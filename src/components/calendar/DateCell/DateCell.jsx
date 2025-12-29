@@ -1,6 +1,7 @@
 import { useEventStore } from "../../../store/useEventStore";
-
 import "./dateCell.css";
+
+const EMPTY_EVENTS = [];
 
 export default function DateCell({ cell }) {
   const today = new Date();
@@ -9,14 +10,15 @@ export default function DateCell({ cell }) {
   const cellMonth = cell.month + 1;
   const cellDate = cell.day.toString().length === 1 ? "0" + cell.day : cell.day;
 
-  const eventByDate = useEventStore((state) => state.eventByDate);
-
   const dailyKey = `${cellYear}-${
     cellMonth.toString().length === 1 ? "0" + cellMonth : cellMonth
   }-${cellDate}`;
 
-  const eventsOfTheDay = eventByDate[dailyKey] || [];
-  console.log("test", eventsOfTheDay, dailyKey);
+  // ✅ stable fallback (no infinite re-render loop)
+  const eventsOfTheDay = useEventStore(
+    (s) => s.eventByDate[dailyKey] ?? EMPTY_EVENTS
+  );
+
   const isToday =
     cell.year === today.getFullYear() &&
     cell.month === today.getMonth() &&
@@ -25,17 +27,8 @@ export default function DateCell({ cell }) {
   const isCurrentMonth = cell.monthType === "current";
 
   let className = "date-cell";
-
-  if (!isCurrentMonth) {
-    className += " date-cell--faded";
-  }
-
-  if (isToday) {
-    className += " date-cell--today";
-  }
-
-  // TEMP: debug line
-  // console.log("CELL", cell, "isToday?", isToday);
+  if (!isCurrentMonth) className += " date-cell--faded";
+  if (isToday) className += " date-cell--today";
 
   return (
     <div className={className}>
