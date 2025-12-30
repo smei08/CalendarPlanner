@@ -1,8 +1,5 @@
-// src/components/navigation/Navbar/Navbar.jsx
-import IconButton from "../../ui/IconButton";
-import Button from "../../ui/Button";
+import Button from "../../ui/Button/Button";
 import MonthSwitcher from "../MonthSwitcher/MonthSwitcher";
-import Avatar from "../../ui/Avatar";
 import "./navbar.css";
 import { Link } from "react-router-dom";
 
@@ -15,15 +12,19 @@ export default function Navbar({
     <div className="nav-bar">
       {/* left section: avatar, clasp, add */}
       <div className="nav-left">
-        <Avatar />
-        {/* <IconButton variant="clasp" onClick={onToggleExpand} /> */}
-        <IconButton variant="add" onClick={onToggleOpen} />
+        <img
+          className="logo"
+          src="https://cdn-icons-png.flaticon.com/256/826/826904.png"
+        />
+        <Button variant="add" onClick={onToggleOpen}>
+          ADD
+        </Button>
       </div>
 
       {/* middle section */}
       <div className="nav-middle">
         <Button variant="today" onClick={onClickToday}>
-          Today
+          TODAY
         </Button>
         <MonthSwitcher />
       </div>

@@ -3,6 +3,7 @@ import { useEventStore } from "../../../store/useEventStore";
 import { useUIStore } from "../../../store/useUIStore";
 import { useState } from "react";
 import EventFormModal from "../EventFormModal/EventFormModal";
+import Button from "../../ui/Button/Button";
 
 export default function EventList({ sortMode = "date", timeFilter = "all" }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -164,13 +165,12 @@ export default function EventList({ sortMode = "date", timeFilter = "all" }) {
                           {event.label}
                         </div>
                       )}
-
-                      <button onClick={() => onClickEdit(event, dateKey)}>
-                        edit
-                      </button>
-                      <button onClick={() => handleDelete(dateKey, event)}>
-                        delete
-                      </button>
+                      <Button onClick={() => onClickEdit(event, dateKey)}>
+                        EDIT
+                      </Button>
+                      <Button onClick={() => handleDelete(dateKey, event)}>
+                        DELETE
+                      </Button>
                     </li>
                   ))}
                 </ul>

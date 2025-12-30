@@ -1,6 +1,7 @@
 // src/components/navigation/MonthSwitcher.jsx
 import { useCalendarStore } from "../../../store/useCalendarStore";
 import "./monthSwitcher.css";
+import Button from "../../ui/Button/Button";
 
 export default function MonthSwitcher() {
   // 1️⃣ Read current year & month from the store
@@ -20,13 +21,13 @@ export default function MonthSwitcher() {
   return (
     <div className="month-switcher">
       {/* LEFT ARROW: go to previous month */}
-      <button
+      <Button
         type="button"
         className="month-switcher-btn"
         onClick={goToPrevMonth}
       >
         {"<"}
-      </button>
+      </Button>
 
       {/* MIDDLE: show "Month Year" */}
       <span className="month-switcher-label">
@@ -34,13 +35,13 @@ export default function MonthSwitcher() {
       </span>
 
       {/* RIGHT ARROW: go to next month */}
-      <button
+      <Button
         type="button"
         className="month-switcher-btn"
         onClick={goToNextMonth}
       >
         {">"}
-      </button>
+      </Button>
     </div>
   );
 }

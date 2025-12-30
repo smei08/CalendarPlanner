@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import "./eventForm.css";
 import { useNavigate } from "react-router-dom";
+import Button from "../../ui/Button/Button";
 
-export default function EventForm({ onClose, initialEvent, onSave, message }) {
+export default function EventForm({ onClose, initialEvent, onSave }) {
   const [title, setTitle] = useState("");
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
@@ -60,13 +61,6 @@ export default function EventForm({ onClose, initialEvent, onSave, message }) {
 
   return (
     <div className="form-container">
-      {/* <div className="form-header">
-        <h2>Plan your day</h2>
-        <button type="button" className="form-close-button" onClick={onClose}>
-          ×
-        </button>
-      </div> */}
-
       {error && <div className="form-error">{error}</div>}
 
       <form className="form-body" onSubmit={handleSubmit}>
@@ -134,10 +128,10 @@ export default function EventForm({ onClose, initialEvent, onSave, message }) {
 
         {/* BUTTONS */}
         <div className="form-actions">
-          <button type="button" onClick={onClose}>
+          <Button type="button" onClick={onClose}>
             Cancel
-          </button>
-          <button type="submit">Save</button>
+          </Button>
+          <Button type="submit">Save</Button>
         </div>
       </form>
     </div>

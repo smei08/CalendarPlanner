@@ -31,3 +31,7 @@
   font-size: 30px;
   font-weight: 800;
 }
+.logo {
+  clip-path: circle(50%);
+  width: 55px;
+}
