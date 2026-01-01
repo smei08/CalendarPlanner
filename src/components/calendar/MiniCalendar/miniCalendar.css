@@ -1,15 +1,28 @@
+.mini-calendar-container {
+  border: 1px solid #7392b7;
+  padding: 10px 20px;
+  border-radius: 10px;
+}
+.mini-header {
+  text-align: center;
+  padding-bottom: 15px;
+  font-size: larger;
+  color: #7392b7;
+}
 .mini-weekday-row {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   align-items: flex-start;
   gap: 15px;
+  font-size: small;
+  padding-bottom: 10px;
 }
 .mini-weekday-cell {
-  border: 0.5px solid black;
   padding: 5px 8px;
   border-radius: 5px;
-  background-color: rgba(236, 192, 255, 0.5);
+  background-color: #c5d5ea;
+  color: #7392b7;
 }
 .mini-cell-grid {
   flex: 1;
@@ -17,7 +30,7 @@
   grid-template-columns: repeat(7, 1fr); /* 7 columns */
   grid-template-rows: repeat(6, 1fr);
   text-align: center;
-  color: black;
+  color: #7392b7;
   min-height: 0;
 }
 .mini-date-cell {
@@ -28,6 +41,6 @@
   opacity: 0.35; /* easiest “fade” */
 }
 .mini-date-cell--today {
-  border: 1px solid red;
+  border: 1px solid #759eb8;
   background-color: white;
 }

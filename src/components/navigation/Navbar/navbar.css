@@ -1,11 +1,13 @@
 .nav-bar {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100vw;
+  /* justify-content: space-evenly; */
+  /* align-items: center; */
+  /* width: 100vw; */
   padding: 15px;
-  background-color: blueviolet;
+  background-color: #b3c5d7;
+  color: rgb(244, 239, 239);
 }
+
 .nav-left {
   width: 25%;
   display: flex;
@@ -22,16 +24,26 @@
 .nav-right {
   display: flex;
   width: 25%;
-  justify-content: space-around;
+  justify-content: space-evenly;
   align-items: center;
 }
-.header-date {
-  display: flex;
-  gap: 20px;
-  font-size: 30px;
-  font-weight: 800;
-}
+
 .logo {
   clip-path: circle(50%);
   width: 55px;
+}
+
+.ui-btn.today {
+  background-color: white;
+  color: #7392b7;
+}
+
+.ui-btn.add {
+  background-color: white;
+  color: #7392b7;
+}
+.ui-btn:hover {
+  background: #89abca;
+  box-shadow: 0 8px 16px 0 rgba(133, 151, 196, 0.6);
+  color: white;
 }

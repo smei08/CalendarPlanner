@@ -31,8 +31,12 @@ export default function Navbar({
 
       {/* right section: calendar + event overview */}
       <nav className="nav-right">
-        <Link to="/calendar">Calendar</Link>
-        <Link to="/events">Events</Link>
+        <Link to="/calendar">
+          <Button>Calendar</Button>
+        </Link>
+        <Link to="/events">
+          <Button>Events</Button>
+        </Link>
       </nav>
     </div>
   );

@@ -16,7 +16,7 @@ export default function EventOverviewPage() {
       {/* <div className="quotes">
         <NotesCard />
       </div> */}
-      <div>
+      <div className="upcoming-events">
         <h1>UPCOMING EVENTS</h1>
 
         <div className="filter">
@@ -60,7 +60,7 @@ export default function EventOverviewPage() {
           </fieldset>
         </div>
 
-        <div className="sort">
+        {/* <div className="sort">
           <fieldset className="sort-group">
             <legend className="sort-label">SORT</legend>
 
@@ -88,7 +88,7 @@ export default function EventOverviewPage() {
               </label>
             </div>
           </fieldset>
-        </div>
+        </div> */}
 
         {/* 👇 pass sortMode down so EventList can use it */}
         <EventList sortMode={sortMode} timeFilter={timeFilter} />

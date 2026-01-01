@@ -18,8 +18,10 @@
   font-weight: bold;
 }
 .weekday {
-  border: 0.5px solid black;
-  padding: 15px 0;
+  border: 0.5px solid #c5d5ea;
+  padding: 10px;
   border-radius: 8px;
-  background-color: rgb(210, 202, 255);
+  background-color: #c5d5ea;
+  color: rgb(90, 101, 115);
+  margin: 0 0.5px;
 }

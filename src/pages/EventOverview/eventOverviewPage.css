@@ -4,4 +4,12 @@
   flex-direction: row;
   width: 100vw;
   justify-content: space-evenly;
+  padding-top: 20px;
+}
+.upcoming-events {
+  color: #7392b7;
+}
+.filter-group {
+  color: #759eb8;
+  border-radius: 5px;
 }

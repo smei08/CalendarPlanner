@@ -22,7 +22,9 @@ export default function EventList({ sortMode = "date", timeFilter = "all" }) {
 
   if (!eventByDate || Object.keys(eventByDate).length === 0) {
     return (
-      <div style={{ color: "black", padding: "16px" }}>No events yet.</div>
+      <div style={{ color: "#759eb8", padding: "20px", textAlign: "center" }}>
+        No events yet.
+      </div>
     );
   }
 
