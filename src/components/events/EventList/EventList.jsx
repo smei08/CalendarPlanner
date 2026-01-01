@@ -4,6 +4,7 @@ import { useUIStore } from "../../../store/useUIStore";
 import { useState } from "react";
 import EventFormModal from "../EventFormModal/EventFormModal";
 import Button from "../../ui/Button/Button";
+import "./eventList.css";
 
 export default function EventList({ sortMode = "date", timeFilter = "all" }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -86,7 +87,7 @@ export default function EventList({ sortMode = "date", timeFilter = "all" }) {
 
   return (
     <div>
-      <div className="eventlist-container" style={{ color: "black" }}>
+      <div className="eventlist-container">
         {finalEntries.map(([dateKey, events]) => {
           const [y, m, day] = dateKey.split("-");
           const dateObj = new Date(Number(y), Number(m) - 1, Number(day));
@@ -111,68 +112,48 @@ export default function EventList({ sortMode = "date", timeFilter = "all" }) {
           }
 
           return (
-            <div
-              key={dateKey}
-              className="eventlist-day"
-              style={{
-                display: "grid",
-                gridTemplateColumns: "140px 1fr",
-                gap: "16px",
-                padding: "12px 16px",
-                borderBottom: "1px solid #ddd",
-              }}
-            >
+            <div key={dateKey} className="eventlist-day">
               <div className="eventlist-date-column">
-                <div style={{ fontWeight: "bold" }}>
+                <div>
                   {monthLabel} {dayOfMonth}, {year}
                 </div>
-                <div style={{ fontSize: "0.85rem", color: "#555" }}>
-                  {weekday.toUpperCase()}
-                </div>
+                <div className="day-of-the-week">{weekday.toUpperCase()}</div>
               </div>
 
               <div className="eventlist-events-column">
-                <ul style={{ listStyle: "none", margin: 0, padding: 0 }}>
+                <ul>
                   {sortedEvents.map((event) => (
-                    <li
-                      key={`${dateKey}-${event.id}`}
-                      style={{ marginBottom: "8px" }}
-                    >
-                      <div style={{ display: "flex", gap: "8px" }}>
-                        <strong>{event.title}</strong>
-                        {event.time && (
-                          <span style={{ fontSize: "0.85rem", color: "#444" }}>
-                            {event.time}
-                          </span>
+                    <li key={`${dateKey}-${event.id}`}>
+                      <div className="event-top-row">
+                        <div className="event-header">
+                          <strong>{event.title}</strong>
+                          {event.time && (
+                            <span
+                              style={{ fontSize: "0.85rem", color: "#444" }}
+                            >
+                              {event.time}
+                            </span>
+                          )}
+                        </div>
+
+                        {event.description && (
+                          <div className="event-description">
+                            {event.description}
+                          </div>
+                        )}
+
+                        {event.label && (
+                          <div className="event-label">{event.label}</div>
                         )}
                       </div>
-
-                      {event.description && (
-                        <div style={{ fontSize: "0.9rem", color: "#555" }}>
-                          {event.description}
-                        </div>
-                      )}
-
-                      {event.label && (
-                        <div
-                          style={{
-                            display: "inline-block",
-                            marginTop: "4px",
-                            padding: "2px 6px",
-                            borderRadius: "999px",
-                            backgroundColor: "#eee",
-                            fontSize: "0.8rem",
-                          }}
-                        >
-                          {event.label}
-                        </div>
-                      )}
-                      <Button onClick={() => onClickEdit(event, dateKey)}>
-                        EDIT
-                      </Button>
-                      <Button onClick={() => handleDelete(dateKey, event)}>
-                        DELETE
-                      </Button>
+                      <div className="event-actions">
+                        <Button onClick={() => onClickEdit(event, dateKey)}>
+                          EDIT
+                        </Button>
+                        <Button onClick={() => handleDelete(dateKey, event)}>
+                          DELETE
+                        </Button>
+                      </div>
                     </li>
                   ))}
                 </ul>

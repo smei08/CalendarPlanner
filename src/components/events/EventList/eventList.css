@@ -1,3 +1,65 @@
 .eventlist-day {
-  color: black;
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 16px;
+  padding: 12px 16px;
+  border-bottom: 1px solid #d8e1e9;
+}
+.eventlist-date-column {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+.day-of-the-week {
+  font-size: 1rem;
+  color: #b3c5d7;
+}
+.eventlist-events-column {
+  display: flex;
+}
+.eventlist-events-column ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  margin-bottom: 8px;
+  width: 100%;
+}
+.event-header {
+  display: flex;
+  gap: 8px;
+  font-size: 1.2rem;
+  align-items: center;
+}
+.event-description {
+  font-size: 1rem;
+}
+.event-label {
+  display: inline-block;
+  margin-top: 4px;
+  padding: 2px 6px;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  background-color: #eee;
+  color: #759eb8;
+  width: fit-content;
+}
+.eventlist-events-column li {
+  display: flex;
+  flex-direction: row;
+}
+.event-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+  justify-content: flex-end;
+  width: 100%;
+}
+.event-actions button {
+  width: auto;
+}
+.event-top-row {
+  display: flex;
+  align-items: flex-start; /* ✅ vertical alignment */
+  justify-content: space-between;
+  /* gap: 16px; */
+  flex-direction: column;
 }

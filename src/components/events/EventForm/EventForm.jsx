@@ -64,23 +64,28 @@ export default function EventForm({ onClose, initialEvent, onSave }) {
       {error && <div className="form-error">{error}</div>}
 
       <form className="form-body" onSubmit={handleSubmit}>
-        {/* TITLE */}
-        <input
-          className="input title"
-          name="title"
-          placeholder="Add Title"
-          type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          required
-        />
+        <div className="form-row">
+          <label>
+            Title
+            {/* TITLE */}
+            <input
+              className="input title"
+              name="title"
+              placeholder="Add Title"
+              type="text"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              required
+            />
+          </label>
+        </div>
 
         {/* DATE + TIME */}
         <div className="form-row">
           <label>
             Date
             <input
-              className="input"
+              className="input date"
               type="date"
               name="date"
               value={date}
@@ -89,7 +94,7 @@ export default function EventForm({ onClose, initialEvent, onSave }) {
             />
           </label>
 
-          <label>
+          {/* <label>
             Time
             <input
               className="input"
@@ -98,33 +103,36 @@ export default function EventForm({ onClose, initialEvent, onSave }) {
               value={time}
               onChange={(e) => setTime(e.target.value)}
             />
-          </label>
+          </label> */}
         </div>
 
         {/* LABEL */}
-        <label>
-          Label
-          <input
-            className="input"
-            name="label"
-            placeholder="e.g. Work, Birthday, Study"
-            type="text"
-            value={label}
-            onChange={(e) => setLabel(e.target.value)}
-          />
-        </label>
-
-        {/* DESCRIPTION */}
-        <label>
-          Description
-          <textarea
-            className="textarea"
-            name="description"
-            placeholder="Add optional notes"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          />
-        </label>
+        <div className="form-row">
+          <label>
+            Label
+            <input
+              className="input"
+              name="label"
+              placeholder="e.g. Work, Birthday, Study"
+              type="text"
+              value={label}
+              onChange={(e) => setLabel(e.target.value)}
+            />
+          </label>
+        </div>
+        <div className="form-row">
+          {/* DESCRIPTION */}
+          <label>
+            Description
+            <textarea
+              className="textarea"
+              name="description"
+              placeholder="Add optional notes"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            />
+          </label>
+        </div>
 
         {/* BUTTONS */}
         <div className="form-actions">
