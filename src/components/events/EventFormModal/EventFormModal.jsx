@@ -1,6 +1,6 @@
 import EventForm from "../EventForm/EventForm";
 import "../EventFormModal/eventFormModal.css";
-import "../../events/EventForm/EventForm.css";
+import "../EventForm/eventForm.css";
 
 export default function EventFormModal({ onClose, eventData, onSave }) {
   return (
