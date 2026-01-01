@@ -1,18 +1,65 @@
-# React + Vite
+# 📅 Calendar Planner
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A responsive **calendar and event planning web app** built with **React + Vite**.  
+This project demonstrates frontend patterns including client-side routing, global state management, and production deployment.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## React Compiler
+- 📆 **Monthly Calendar View**
+  - Full 6-week calendar grid
+  - Visual event “pills” displayed on each date
+  - Today highlight
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+- 🗂️ **Event Overview Page**
+  - Events grouped by date
+  - Filter events by:
+    - All events
+    - Today
+    - This month
 
-Note: This will impact Vite dev & build performances.
+- ✏️ **Create, Edit, and Delete Events**
+  - Modal form for event creation and editing
+  - Required title and date validation
+  - Edit mode pre-fills existing event data
 
-## Expanding the ESLint configuration
+- 🔔 **Toast Notifications**
+  - Visual confirmation when events are saved or updated
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- 🗓️ **Mini Calendar**
+  - Secondary calendar for quick month context
+  - Faded previous / next month days
+
+- 🌐 **Client-Side Routing**
+  - Multi-page experience using React Router
+  - `/calendar` and `/events` routes
+
+- 🚀 **Deployed with Netlify**
+  - SPA routing configured for deep links and refresh support
+
+---
+
+## 🛠️ Tech Stack
+
+- **React** – UI components
+- **Vite** – Development and build tooling
+- **React Router** – Client-side routing
+- **Zustand** – Lightweight global state management
+- **CSS** – Component-based styling
+- **Netlify** – Deployment and hosting
+
+---
+
+## 🧠 Key Concepts Demonstrated
+
+- Single Page Application (SPA) architecture
+- Client-side routing vs server routing
+- Global state management with Zustand
+- Controlled forms and edit-mode prefilling
+- Modular component structure
+- Production deployment configuration
+
+---
+
+
