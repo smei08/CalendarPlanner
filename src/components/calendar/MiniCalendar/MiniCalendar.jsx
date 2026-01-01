@@ -2,7 +2,7 @@ import { useCalendarStore } from "../../../store/useCalendarStore";
 import "./miniCalendar.css";
 
 export default function MiniCalendar() {
-  const weekDays = ["S", "M", "T", "W", "T", "F", "S"];
+  const weekDays = ["S", "M", "TU", "W", "TH", "F", "S"];
   const miniYear = useCalendarStore((state) => state.miniYear);
   const miniMonth = useCalendarStore((state) => state.miniMonth);
 

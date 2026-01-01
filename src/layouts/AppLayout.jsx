@@ -10,7 +10,7 @@ import { useCalendarStore } from "../store/useCalendarStore";
 import { useEventStore } from "../store/useEventStore";
 import { useUIStore } from "../store/useUIStore";
 
-export default function AppLayout() {
+export default function AppLayout({ message }) {
   const [showEventForm, setShowEventForm] = useState(false);
 
   const goToToday = useCalendarStore((state) => state.goToToday);
@@ -33,7 +33,7 @@ export default function AppLayout() {
     createEvent(draftEvent);
     setShowEventForm(false);
 
-    showToast("EVENT SAVED");
+    showToast("Event Saved");
   }
 
   useEffect(() => {

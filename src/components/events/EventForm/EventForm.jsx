@@ -42,7 +42,7 @@ export default function EventForm({ onClose, initialEvent, onSave }) {
     if (initialEvent) {
       // Edit mode → prefill form
       setTitle(initialEvent.title || "");
-      setDate(initialEvent.dateKey || "");
+      setDate(initialEvent.date || "");
       setTime(initialEvent.time || "");
       setLabel(initialEvent.label || "");
       setDescription(initialEvent.description || "");
